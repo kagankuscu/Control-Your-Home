@@ -8,5 +8,13 @@
         android:id="@+id/loginFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginRegisterFragment"
+            app:destination="@id/loginRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginRegisterFragment"
+        android:name="com.kagan.control_your_home.ui.fragments.LoginRegisterFragment"
+        android:label="LoginRegisterFragment" />
 </navigation>

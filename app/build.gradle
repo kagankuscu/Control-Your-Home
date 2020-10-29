@@ -1,12 +1,17 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
+    dataBinding {
+        enabled = true
+    }
+    
     defaultConfig {
         applicationId "com.kagan.control_your_home"
         minSdkVersion 26

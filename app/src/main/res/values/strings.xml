@@ -6,4 +6,7 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="register">Register</string>
+    <string name="user_created_succecfully">User created successfully</string>
+    <string name="user_created_failed">User created failed</string>
+    <string name="error_password_same">Passwords are not the same</string>
 </resources>

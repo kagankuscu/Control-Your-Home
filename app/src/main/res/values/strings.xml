@@ -9,4 +9,14 @@
     <string name="user_created_succecfully">User created successfully</string>
     <string name="user_created_failed">User created failed</string>
     <string name="error_password_same">Passwords are not the same</string>
+    <string name="error_empty">It can\'t be empty</string>
+    <string name="temp">Temp</string>
+    <string name="drop">drop</string>
+    <string name="lumen">lumen</string>
+    <string name="back">back</string>
+    <string name="control_room">Control Room:</string>
+    <string name="living_room">Living room</string>
+    <string name="kitchen">Kitchen</string>
+    <string name="bed_room">Bed room</string>
+    <string name="guest_room">Guest room</string>
 </resources>

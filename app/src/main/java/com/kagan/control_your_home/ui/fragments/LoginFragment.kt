@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.ui.MainActivity
@@ -28,7 +29,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel = (activity as MainActivity).viewModel
         mAuth = FirebaseAuth.getInstance()
 
-        val currentUser = mAuth?.currentUser;
+        val currentUser = mAuth.currentUser;
         Log.d(TAG, "current User :${currentUser?.displayName}")
     }
 
@@ -42,10 +43,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = etPassword.text.toString()
 
             if (email.isEmpty()) {
-                etEmail.error = "It can't be empty"
+                etEmail.error = getString(R.string.error_empty)
                 return@setOnClickListener
             } else if (password.isEmpty()) {
-                etPassword.error = "It can't be empty"
+                etPassword.error = getString(R.string.error_empty)
                 return@setOnClickListener
             }
 
@@ -53,17 +54,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             lifecycleScope.launch(Dispatchers.IO) {
                 checkAuth(email, password)
-
-                withContext(Dispatchers.Main) {
-                    progressBar.visibility = View.INVISIBLE
-                    TODO("Here will add navigation to first page")
-                }
             }
+        }
 
-            tvSignUp.setOnClickListener {
-                view.findNavController()
-                    .navigate(R.id.action_loginFragment_to_loginRegisterFragment)
-            }
+        tvSignUp.setOnClickListener {
+            view.findNavController()
+                .navigate(R.id.action_loginFragment_to_loginRegisterFragment)
         }
     }
 
@@ -71,12 +67,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(
-                        context,
-                        "Successful",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    view.let {
+                        findNavController().navigate(R.id.action_loginFragment_to_roomFragment)
+                    }
                 } else {
                     Toast.makeText(
                         context,

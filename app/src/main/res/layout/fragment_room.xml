@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/lLayoutFirst"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@color/blue_grey_dark"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="@string/back"
+                android:src="@drawable/ic_back_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Kagan"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivBack" />
+
+            <LinearLayout
+                android:id="@+id/lLayoutInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="41dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="3dp"
+                    android:contentDescription="@string/temp"
+                    android:src="@drawable/ic_thermometer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30\'C"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="46dp"
+                    android:layout_marginTop="3dp"
+                    android:contentDescription="@string/drop"
+                    android:src="@drawable/ic_drop" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100%"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="46dp"
+                    android:layout_marginTop="3dp"
+                    android:contentDescription="@string/lumen"
+                    android:src="@drawable/ic_lumens" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100lm"
+                    android:textColor="@color/white"
+                    android:textSize="22sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/guide"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/lLayoutFirst"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guide">
+
+        <LinearLayout
+            android:id="@+id/lLayoutSecond"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tvControlRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/control_room"
+                    android:textColor="@color/white"
+                    android:textSize="32sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvLivingRoom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvControlRoom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:orientation="vertical"
+                        android:paddingStart="32dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="32dp"
+                        android:paddingBottom="16dp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:contentDescription="@string/living_room"
+                            android:src="@drawable/ic_living_room" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/living_room"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvKitchen"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvControlRoom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:orientation="vertical"
+                        android:paddingStart="32dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="32dp"
+                        android:paddingBottom="16dp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:contentDescription="@string/kitchen"
+                            android:src="@drawable/ic_kitchen" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/kitchen"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvBedRoom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvLivingRoom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:orientation="vertical"
+                        android:paddingStart="32dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="32dp"
+                        android:paddingBottom="16dp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:contentDescription="@string/bed_room"
+                            android:src="@drawable/ic_beds" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/bed_room"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvGuestRoom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cvLivingRoom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button"
+                        android:orientation="vertical"
+                        android:paddingStart="32dp"
+                        android:paddingTop="16dp"
+                        android:paddingEnd="32dp"
+                        android:paddingBottom="16dp"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:contentDescription="@string/guest_room"
+                            android:src="@drawable/ic_guest_room" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/guest_room"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

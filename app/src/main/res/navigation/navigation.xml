@@ -12,9 +12,16 @@
         <action
             android:id="@+id/action_loginFragment_to_loginRegisterFragment"
             app:destination="@id/loginRegisterFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginRegisterFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginRegisterFragment"
         android:label="LoginRegisterFragment" />
+    <fragment
+        android:id="@+id/roomFragment"
+        android:name="com.kagan.control_your_home.ui.fragments.RoomFragment"
+        android:label="RoomFragment" />
 </navigation>

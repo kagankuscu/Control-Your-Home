@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "285681365961",
+    "firebase_url": "https://smart-home-6c4d6.firebaseio.com",
+    "project_id": "smart-home-6c4d6",
+    "storage_bucket": "smart-home-6c4d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:285681365961:android:30e08f7247fdb650ef6e18",
+        "android_client_info": {
+          "package_name": "com.kagan.control_your_home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "285681365961-4se6hvs0k1jbnihr4sve2p7tqd16dkg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl_jtDLthU5Ahpzn0HIEbnJGr0L6wnu58"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "285681365961-4se6hvs0k1jbnihr4sve2p7tqd16dkg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

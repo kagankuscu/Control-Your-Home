@@ -13,10 +13,7 @@
         android:paddingStart="@dimen/margin_dashboard_start"
         android:paddingTop="@dimen/dashboard_margin_top"
         android:paddingEnd="@dimen/margin_dashboard_end"
-        android:paddingBottom="@dimen/margin_dashboard_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingBottom="@dimen/margin_dashboard_bottom">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -42,9 +39,12 @@
             android:id="@+id/ivTemp"
             android:layout_width="@dimen/info_image_size"
             android:layout_height="@dimen/info_image_size"
-            android:layout_marginTop="@dimen/info_margin_top"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
             android:contentDescription="@string/temp"
             android:src="@drawable/ic_thermometer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvTemp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
@@ -52,12 +52,12 @@
             android:id="@+id/tvTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/info_image_text_margin_start"
             android:text="30\'C"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
             app:layout_constraintEnd_toStartOf="@+id/ivDrop"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ivTemp"
             app:layout_constraintTop_toTopOf="@+id/ivTemp" />
 
@@ -65,10 +65,11 @@
             android:id="@+id/ivDrop"
             android:layout_width="@dimen/info_image_size"
             android:layout_height="@dimen/info_image_size"
-            android:layout_marginStart="@dimen/info_margin_start"
             android:contentDescription="@string/drop"
             android:src="@drawable/ic_drop"
             app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
+            app:layout_constraintEnd_toStartOf="@+id/tvHumidity"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvTemp"
             app:layout_constraintTop_toTopOf="@+id/ivTemp" />
 
@@ -76,33 +77,37 @@
             android:id="@+id/tvHumidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/info_image_text_margin_start"
             android:text="100%"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivDrop"
+            app:layout_constraintEnd_toStartOf="@+id/ivLum"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ivDrop"
-            app:layout_constraintTop_toTopOf="@+id/ivTemp" />
+            app:layout_constraintTop_toTopOf="@+id/ivDrop" />
 
         <ImageView
             android:id="@+id/ivLum"
             android:layout_width="@dimen/info_image_size"
             android:layout_height="@dimen/info_text_size"
-            android:layout_marginStart="@dimen/info_margin_start"
             android:contentDescription="@string/lumen"
             android:src="@drawable/ic_lumens"
-            app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDrop"
+            app:layout_constraintEnd_toStartOf="@+id/textView5"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvHumidity"
-            app:layout_constraintTop_toTopOf="@+id/ivTemp" />
+            app:layout_constraintTop_toTopOf="@+id/ivDrop" />
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/info_image_text_margin_start"
             android:text="100lm"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivLum"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ivLum"
             app:layout_constraintTop_toTopOf="@+id/ivLum" />
 

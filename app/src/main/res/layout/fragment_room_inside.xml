@@ -42,7 +42,7 @@
             android:id="@+id/ivTemp"
             android:layout_width="@dimen/info_image_size"
             android:layout_height="@dimen/info_image_size"
-            android:layout_marginTop="@dimen/info_margin_top"
+            android:layout_marginTop="@dimen/dashboard_margin_top"
             android:contentDescription="@string/temp"
             android:src="@drawable/ic_thermometer"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +105,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/ivLum"
             app:layout_constraintStart_toEndOf="@+id/ivLum"
             app:layout_constraintTop_toTopOf="@+id/ivLum" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -135,18 +134,19 @@
                 android:id="@+id/tvControlRoom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/control_room"
+                android:layout_marginTop="@dimen/control_room_margin_top"
+                android:text="@string/control_device"
                 android:textColor="@color/white"
                 android:textSize="@dimen/control_room_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvLivingRoom"
+                android:id="@+id/cvLamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/control_room_margin_top"
-                app:layout_constraintEnd_toStartOf="@+id/cvKitchen"
+                app:layout_constraintEnd_toStartOf="@+id/cvFan"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvControlRoom">
 
@@ -155,100 +155,100 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
-                    android:padding="@dimen/card_view_padding"
+                    android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
                         android:layout_gravity="center"
-                        android:contentDescription="@string/living_room"
-                        android:src="@drawable/ic_living_room" />
+                        android:contentDescription="@string/lamp"
+                        android:src="@drawable/ic_lamp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/living_room"
+                        android:text="@string/lamp"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_text_size" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvKitchen"
+                android:id="@+id/cvFan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cvLivingRoom"
-                app:layout_constraintTop_toTopOf="@+id/cvLivingRoom">
+                app:layout_constraintStart_toEndOf="@+id/cvLamp"
+                app:layout_constraintTop_toTopOf="@+id/cvLamp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
-                    android:padding="@dimen/card_view_padding"
+                    android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
                         android:layout_gravity="center"
-                        android:contentDescription="@string/kitchen"
-                        android:src="@drawable/ic_kitchen" />
+                        android:contentDescription="@string/fan"
+                        android:src="@drawable/ic_fan" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/kitchen"
+                        android:text="@string/fan"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_text_size" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvBedRoom"
+                android:id="@+id/cvTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/card_view_margin_top"
-                app:layout_constraintEnd_toStartOf="@+id/cvGuestRoom"
+                android:layout_marginTop="@dimen/control_room_margin_top"
+                app:layout_constraintEnd_toStartOf="@+id/cvMotionSensor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvLivingRoom">
+                app:layout_constraintTop_toBottomOf="@+id/cvLamp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
-                    android:padding="@dimen/card_view_padding"
+                    android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
                         android:layout_gravity="center"
-                        android:contentDescription="@string/bed_room"
-                        android:src="@drawable/ic_beds" />
+                        android:contentDescription="@string/TV"
+                        android:src="@drawable/ic_television" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/bed_room"
+                        android:text="@string/TV"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_text_size" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvGuestRoom"
+                android:id="@+id/cvMotionSensor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cvBedRoom"
-                app:layout_constraintTop_toTopOf="@+id/cvBedRoom">
+                app:layout_constraintStart_toEndOf="@+id/cvTV"
+                app:layout_constraintTop_toTopOf="@+id/cvTV">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -262,14 +262,14 @@
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
                         android:layout_gravity="center"
-                        android:contentDescription="@string/guest_room"
-                        android:src="@drawable/ic_guest_room" />
+                        android:contentDescription="@string/motion_sensor"
+                        android:src="@drawable/ic_motion_sensor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/guest_room"
+                        android:text="@string/motion_sensor"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_text_size" />
                 </LinearLayout>

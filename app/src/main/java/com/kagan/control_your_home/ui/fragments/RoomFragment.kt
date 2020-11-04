@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.kagan.control_your_home.R
-import kotlinx.android.synthetic.main.fragment_room.*
 
 class RoomFragment: Fragment(R.layout.fragment_room) {
 

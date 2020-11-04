@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Control Your Home</string>
 
-    <string name="new_account">Don\'t have an Account? <b>Sign up</b></string>
+    <string name="new_account">Don\'t have an Account?</string>
+    <string name="sign_up"><b>Sign up</b></string>
     <string name="login">LOGIN</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="register">Register</string>
-    <string name="user_created_succecfully">User created successfully</string>
+    <string name="user_created_successfully">User created successfully</string>
     <string name="user_created_failed">User created failed</string>
     <string name="error_password_same">Passwords are not the same</string>
     <string name="error_empty">It can\'t be empty</string>
@@ -19,4 +20,10 @@
     <string name="kitchen">Kitchen</string>
     <string name="bed_room">Bed room</string>
     <string name="guest_room">Guest room</string>
+    <string name="img_user">img_user</string>
+    <string name="control_device">Control Device:</string>
+    <string name="lamp">Lamp</string>
+    <string name="TV">TV</string>
+    <string name="motion_sensor">Motion Sensor</string>
+    <string name="fan">Fan</string>
 </resources>

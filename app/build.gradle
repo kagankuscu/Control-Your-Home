@@ -1,6 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'com.google.gms.google-services'
@@ -9,8 +11,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
     
     defaultConfig {

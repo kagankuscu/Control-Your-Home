@@ -4,14 +4,22 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.kagan.control_your_home.R
+import com.kagan.control_your_home.databinding.FragmentDeviceBinding
 
-class DeviceFragment : Fragment(R.layout.fragment_login_register) {
+class DeviceFragment : Fragment(R.layout.fragment_device) {
 
     val TAG = "DeviceFragment"
+    lateinit var binding: FragmentDeviceBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentDeviceBinding.bind(view)
         Log.d(TAG, TAG)
+
+        binding.ivBack.setOnClickListener {
+            view.findNavController().navigate(R.id.action_deviceFragment_to_roomInsideFragment)
+        }
     }
 }

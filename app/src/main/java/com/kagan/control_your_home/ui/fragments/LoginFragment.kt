@@ -25,7 +25,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = (activity as MainActivity).viewModel
         mAuth = FirebaseAuth.getInstance()
 
         val currentUser = mAuth.currentUser;
@@ -35,6 +34,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
+
+        // When i turn the phone app suddenly close i solved the problem
+        // changing viewModel initialized from onCreate to onViewCreated
+        viewModel = (activity as MainActivity).viewModel
+
 
         binding.btnLogin.setOnClickListener {
             Toast.makeText(context, "btnLogin Clicked.", Toast.LENGTH_SHORT).show()

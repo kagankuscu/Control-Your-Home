@@ -113,6 +113,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ivLum"
             app:layout_constraintTop_toTopOf="@+id/ivLum" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
@@ -139,126 +140,24 @@
             android:padding="@dimen/control_room_padding">
 
             <TextView
-                android:id="@+id/tvControlRoom"
+                android:id="@+id/tvStartTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/control_room_margin_top"
-                android:text="@string/control_device"
+                android:text="@string/start_time"
                 android:textColor="@color/white"
                 android:textSize="@dimen/control_room_text_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvLamp"
+                android:id="@+id/cvFrom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/control_room_margin_top"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/cvFan"
+                app:layout_constraintBottom_toBottomOf="@+id/cvTo"
+                app:layout_constraintEnd_toStartOf="@+id/cvTo"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvControlRoom">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button"
-                    android:orientation="vertical"
-                    android:padding="@dimen/control_room_padding"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="@dimen/card_view_image_size"
-                        android:layout_height="@dimen/card_view_image_size"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/lamp"
-                        android:src="@drawable/ic_lamp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/lamp"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_text_size" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvFan"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cvLamp"
-                app:layout_constraintTop_toTopOf="@+id/cvLamp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button"
-                    android:orientation="vertical"
-                    android:padding="@dimen/control_room_padding"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="@dimen/card_view_image_size"
-                        android:layout_height="@dimen/card_view_image_size"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/fan"
-                        android:src="@drawable/ic_fan" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/fan"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_text_size" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/control_room_margin_top"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/cvMotionSensor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cvLamp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button"
-                    android:orientation="vertical"
-                    android:padding="@dimen/control_room_padding"
-                    tools:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="@dimen/card_view_image_size"
-                        android:layout_height="@dimen/card_view_image_size"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/TV"
-                        android:src="@drawable/ic_television" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/TV"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_text_size" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cvMotionSensor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cvTV"
-                app:layout_constraintTop_toTopOf="@+id/cvTV">
+                app:layout_constraintTop_toBottomOf="@+id/tvStartTime">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -268,22 +167,84 @@
                     android:padding="@dimen/card_view_padding"
                     tools:ignore="UseCompoundDrawables">
 
-                    <ImageView
-                        android:layout_width="@dimen/card_view_image_size"
-                        android:layout_height="@dimen/card_view_image_size"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/motion_sensor"
-                        android:src="@drawable/ic_motion_sensor" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/from"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/card_view_from_text_size" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/motion_sensor"
+                        android:text="@string/time"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/card_view_text_size" />
+                        android:textSize="@dimen/card_view_time_text_size" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvTo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_view_margin_start"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/cvFrom"
+                app:layout_constraintTop_toTopOf="@+id/cvFrom">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    android:orientation="vertical"
+                    android:padding="@dimen/card_view_padding"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/to"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/card_view_from_text_size" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/card_view_time_text_size" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:layout_marginTop="@dimen/frame_layout_margin_top"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cvFrom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/repeat_margin_start"
+                    android:layout_marginTop="@dimen/repeat_margin_top"
+                    android:text="Repeat"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/card_view_from_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/day_margin_top"
+                    android:layout_marginEnd="@dimen/day_margin_end"
+                    android:text="Mon Tue Wed Thu Fri Sat"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/card_view_text_size" />
+            </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

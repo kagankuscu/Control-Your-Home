@@ -13,7 +13,10 @@
         android:paddingStart="@dimen/margin_dashboard_start"
         android:paddingTop="@dimen/dashboard_margin_top"
         android:paddingEnd="@dimen/margin_dashboard_end"
-        android:paddingBottom="@dimen/margin_dashboard_bottom">
+        android:paddingBottom="@dimen/margin_dashboard_bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -148,15 +151,16 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvLivingRoom"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/control_room_margin_top"
+                android:layout_marginEnd="@dimen/card_view_margin_end"
                 app:layout_constraintEnd_toStartOf="@+id/cvKitchen"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvControlRoom">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
@@ -182,14 +186,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvKitchen"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cvLivingRoom"
                 app:layout_constraintTop_toTopOf="@+id/cvLivingRoom">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
@@ -215,15 +219,16 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvBedRoom"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/card_view_margin_top"
+                android:layout_marginEnd="@dimen/card_view_margin_end"
                 app:layout_constraintEnd_toStartOf="@+id/cvGuestRoom"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cvLivingRoom">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"
@@ -249,14 +254,14 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvGuestRoom"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cvBedRoom"
                 app:layout_constraintTop_toTopOf="@+id/cvBedRoom">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button"
                     android:orientation="vertical"

@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentRoomInsideBinding
 
@@ -19,9 +21,12 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         binding = FragmentRoomInsideBinding.bind(view)
         Log.d(TAG, TAG)
 
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigateUp()
+        }
 
         binding.ivBack.setOnClickListener {
-            view.findNavController().navigate(R.id.action_roomInsideFragment_to_roomFragment2)
+            callback.handleOnBackPressed()
         }
 
         binding.cvLamp.setOnClickListener {

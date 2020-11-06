@@ -19,11 +19,7 @@
     <fragment
         android:id="@+id/loginRegisterFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginRegisterFragment"
-        android:label="LoginRegisterFragment" >
-        <action
-            android:id="@+id/action_loginRegisterFragment_to_loginFragment2"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        android:label="LoginRegisterFragment" />
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomFragment"
@@ -35,18 +31,11 @@
     <fragment
         android:id="@+id/deviceFragment"
         android:name="com.kagan.control_your_home.ui.fragments.DeviceFragment"
-        android:label="DeviceFragment" >
-        <action
-            android:id="@+id/action_deviceFragment_to_roomInsideFragment"
-            app:destination="@id/roomInsideFragment" />
-    </fragment>
+        android:label="DeviceFragment" />
     <fragment
         android:id="@+id/roomInsideFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomInsideFragment"
         android:label="RoomInsideFragment" >
-        <action
-            android:id="@+id/action_roomInsideFragment_to_roomFragment2"
-            app:destination="@id/roomFragment" />
         <action
             android:id="@+id/action_roomInsideFragment_to_deviceFragment2"
             app:destination="@id/deviceFragment" />

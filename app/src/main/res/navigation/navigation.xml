@@ -23,5 +23,21 @@
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomFragment"
-        android:label="RoomFragment" />
+        android:label="RoomFragment" >
+        <action
+            android:id="@+id/action_roomFragment_to_roomInsideFragment"
+            app:destination="@id/roomInsideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deviceFragment"
+        android:name="com.kagan.control_your_home.ui.fragments.DeviceFragment"
+        android:label="DeviceFragment" />
+    <fragment
+        android:id="@+id/roomInsideFragment"
+        android:name="com.kagan.control_your_home.ui.fragments.RoomInsideFragment"
+        android:label="RoomInsideFragment" >
+        <action
+            android:id="@+id/action_roomInsideFragment_to_deviceFragment2"
+            app:destination="@id/deviceFragment" />
+    </fragment>
 </navigation>

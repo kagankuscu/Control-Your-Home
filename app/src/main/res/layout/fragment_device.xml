@@ -96,13 +96,13 @@
             android:contentDescription="@string/lumen"
             android:src="@drawable/ic_lumens"
             app:layout_constraintBottom_toBottomOf="@+id/ivDrop"
-            app:layout_constraintEnd_toStartOf="@+id/textView5"
+            app:layout_constraintEnd_toStartOf="@+id/tvLum"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvHumidity"
             app:layout_constraintTop_toTopOf="@+id/ivDrop" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tvLum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100lm"
@@ -217,6 +217,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <FrameLayout
+                android:id="@+id/flRepeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input"

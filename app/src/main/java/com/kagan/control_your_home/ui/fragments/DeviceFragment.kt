@@ -1,5 +1,7 @@
 package com.kagan.control_your_home.ui.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -33,6 +35,13 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeviceBinding.bind(view)
+        val fromDialog = createTimeDialog()
+        val toDialog = createTimeDialog()
+        val repeat = createDayDialog()
+
+        fromDialog?.setMessage("Start Time")
+        toDialog?.setMessage("Finish Time")
+
         Log.d(TAG, TAG)
 
         setInfo()
@@ -43,6 +52,19 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
         binding.ivBack.setOnClickListener {
             callback.handleOnBackPressed()
+        }
+
+        binding.cvFrom.setOnClickListener {
+            fromDialog?.show()
+        }
+
+        binding.cvTo.setOnClickListener {
+            toDialog?.show()
+        }
+
+        binding.flRepeat.setOnClickListener {
+            Log.d(TAG, "onViewCreated: ")
+            repeat?.show()
         }
     }
 
@@ -76,5 +98,43 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                 Log.d(TAG, "onCancelled: ", error.toException())
             }
         })
+    }
+
+    private fun createTimeDialog(): AlertDialog.Builder? {
+        return activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle("Time")
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
+                    Log.d(TAG, "createDialog: $dialog $id")
+                })
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
+                    Log.d(TAG, "createDialog: $dialog $id")
+                })
+        }
+    }
+
+    private fun createDayDialog(): AlertDialog.Builder? {
+        val selectedItems = ArrayList<Int>()
+
+        return activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle("Days")
+                .setMultiChoiceItems(
+                    R.array.days,
+                    null,
+                    DialogInterface.OnMultiChoiceClickListener { dialog, which, isChecked ->
+                        if (isChecked) {
+                            selectedItems.add(which)
+                        } else {
+                            selectedItems.remove(Integer.valueOf(which))
+                        }
+                    })
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+                    Log.d(TAG, "createDayDialog: day,$which")
+                })
+                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
+                    Log.d(TAG, "createDayDialog: ")
+                })
+        }
     }
 }

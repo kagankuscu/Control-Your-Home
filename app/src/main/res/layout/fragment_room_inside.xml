@@ -167,6 +167,12 @@
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
+                    <TextView
+                        android:id="@+id/tvLampCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
+
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
@@ -199,6 +205,12 @@
                     android:orientation="vertical"
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/tvFanCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
@@ -235,6 +247,12 @@
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
+                    <TextView
+                        android:id="@+id/tvTVCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
+
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
@@ -267,6 +285,12 @@
                     android:orientation="vertical"
                     android:padding="@dimen/card_view_padding"
                     tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/tvMotionSensorCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"

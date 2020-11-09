@@ -1,10 +1,8 @@
 package com.kagan.control_your_home.ui.fragments
 
-import android.hardware.Sensor
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -54,6 +52,7 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
 
         setInfo()
         setDevice()
+//        isOpenDevice()
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigateUp()
@@ -166,6 +165,11 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         light.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 lightStatus = snapshot.value
+
+                if (lightStatus as Boolean)
+                    binding.tvLampCircle.setBackgroundResource(R.drawable.info_open_device)
+                else
+                    binding.tvLampCircle.setBackgroundResource(R.drawable.info_close_device)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -176,6 +180,11 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         fan.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 fanStatus = snapshot.value
+
+                if (fanStatus as Boolean)
+                    binding.tvFanCircle.setBackgroundResource(R.drawable.info_open_device)
+                else
+                    binding.tvFanCircle.setBackgroundResource(R.drawable.info_close_device)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -186,6 +195,11 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         tv.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 tvStatus = snapshot.value
+
+                if (tvStatus as Boolean)
+                    binding.tvTVCircle.setBackgroundResource(R.drawable.info_open_device)
+                else
+                    binding.tvTVCircle.setBackgroundResource(R.drawable.info_close_device)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -196,6 +210,12 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         motionSensor.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 motionSensorStatus = snapshot.value
+
+
+                if (motionSensorStatus as Boolean)
+                    binding.tvMotionSensorCircle.setBackgroundResource(R.drawable.info_open_device)
+                else
+                    binding.tvMotionSensorCircle.setBackgroundResource(R.drawable.info_close_device)
             }
 
             override fun onCancelled(error: DatabaseError) {

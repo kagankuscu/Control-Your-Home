@@ -55,7 +55,6 @@
             android:id="@+id/tvTemp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30\'C"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
@@ -80,7 +79,6 @@
             android:id="@+id/tvHumidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100%"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivDrop"
@@ -105,7 +103,6 @@
             android:id="@+id/tvLum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100lm"
             android:textColor="@color/white"
             android:textSize="@dimen/info_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/ivLum"
@@ -167,6 +164,12 @@
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
+                    <TextView
+                        android:id="@+id/tvLampCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
+
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
@@ -199,6 +202,12 @@
                     android:orientation="vertical"
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/tvFanCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
@@ -235,6 +244,12 @@
                     android:padding="@dimen/control_room_padding"
                     tools:ignore="UseCompoundDrawables">
 
+                    <TextView
+                        android:id="@+id/tvTVCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
+
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"
                         android:layout_height="@dimen/card_view_image_size"
@@ -267,6 +282,12 @@
                     android:orientation="vertical"
                     android:padding="@dimen/card_view_padding"
                     tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/tvMotionSensorCircle"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"/>
 
                     <ImageView
                         android:layout_width="@dimen/card_view_image_size"

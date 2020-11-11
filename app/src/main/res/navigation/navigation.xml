@@ -31,7 +31,11 @@
     <fragment
         android:id="@+id/deviceFragment"
         android:name="com.kagan.control_your_home.ui.fragments.DeviceFragment"
-        android:label="DeviceFragment" />
+        android:label="DeviceFragment" >
+        <argument
+            android:name="device_name"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/roomInsideFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomInsideFragment"
@@ -39,5 +43,8 @@
         <action
             android:id="@+id/action_roomInsideFragment_to_deviceFragment2"
             app:destination="@id/deviceFragment" />
+        <argument
+            android:name="name_room"
+            app:argType="string" />
     </fragment>
 </navigation>

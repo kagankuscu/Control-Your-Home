@@ -8,6 +8,7 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.firebase.database.*
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentDeviceBinding
@@ -20,6 +21,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     lateinit var hum: DatabaseReference
     lateinit var lum: DatabaseReference
     lateinit var binding: FragmentDeviceBinding
+    private val args: DeviceFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,8 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigateUp()
         }
+
+        binding.tvName.text = args.deviceName
 
         binding.ivBack.setOnClickListener {
             callback.handleOnBackPressed()

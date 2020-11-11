@@ -2,11 +2,9 @@ package com.kagan.control_your_home.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -42,34 +40,42 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
         setInfo()
 
         binding.tvName.text = user.email
-        
 
         binding.cvLivingRoom.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvLivingRoom clicked")
-            view.findNavController().navigate(R.id.action_roomFragment_to_roomInsideFragment)
+            navigate(getString(R.string.living_room))
         }
 
         binding.cvKitchen.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvKitchen clicked")
-            view.findNavController().navigate(R.id.action_roomFragment_to_roomInsideFragment)
+            navigate(getString(R.string.kitchen))
         }
 
         binding.cvBedRoom.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvBedRoom clicked")
-            view.findNavController().navigate(R.id.action_roomFragment_to_roomInsideFragment)
+            navigate(getString(R.string.bed_room))
         }
 
         binding.cvGuestRoom.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvGuestRoom clicked")
-            view.findNavController().navigate(R.id.action_roomFragment_to_roomInsideFragment)
+            navigate(getString(R.string.guest_room))
         }
 
 
+        logUserInfo()
+    }
+
+    private fun logUserInfo() {
         Log.d(TAG, "Email Verified: ${user.isEmailVerified}")
         Log.d(TAG, "Email: ${user.email}")
         Log.d(TAG, "Name: ${user.displayName}")
         Log.d(TAG, "Number: ${user.phoneNumber}")
         Log.d(TAG, "photo url: ${user.photoUrl}")
+    }
+
+    private fun navigate(value: String) {
+        val action = RoomFragmentDirections.actionRoomFragmentToRoomInsideFragment(value)
+        findNavController().navigate(action)
     }
 
     private fun setInfo() {

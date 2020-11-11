@@ -1,8 +1,10 @@
 package com.kagan.control_your_home.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -54,6 +56,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 return@setOnClickListener
             }
 
+            hideKeyboard()
+
             binding.progressBar.visibility = View.VISIBLE
 
             lifecycleScope.launch(Dispatchers.IO) {
@@ -65,6 +69,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             view.findNavController()
                 .navigate(R.id.action_loginFragment_to_loginRegisterFragment)
         }
+    }
+
+    private fun hideKeyboard() {
+        val currentFocus = (activity as MainActivity).currentFocus
+        val imm =
+            this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     private suspend fun checkAuth(email: String, password: String) {

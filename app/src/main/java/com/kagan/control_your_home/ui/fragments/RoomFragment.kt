@@ -42,36 +42,7 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
         setInfo()
 
         binding.tvName.text = user.email
-
-        temp.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvTemp.text = getString(R.string.info_temp, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
-        })
-
-        lum.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvLum.text = getString(R.string.info_lum, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
-        })
-
-        hum.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvHumidity.text = getString(R.string.info_hum, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
-        })
+        
 
         binding.cvLivingRoom.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvLivingRoom clicked")

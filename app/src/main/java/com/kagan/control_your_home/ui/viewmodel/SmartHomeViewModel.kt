@@ -1,4 +1,4 @@
-package com.kagan.control_your_home.ui
+package com.kagan.control_your_home.ui.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

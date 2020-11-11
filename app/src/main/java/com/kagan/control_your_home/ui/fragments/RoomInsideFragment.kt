@@ -5,11 +5,24 @@ import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.firebase.database.*
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentRoomInsideBinding
+import com.kagan.control_your_home.others.Constant.BED_ROOM
+import com.kagan.control_your_home.others.Constant.FAN
+import com.kagan.control_your_home.others.Constant.GUEST_ROOM
+import com.kagan.control_your_home.others.Constant.HUM
+import com.kagan.control_your_home.others.Constant.INFO
+import com.kagan.control_your_home.others.Constant.KITCHEN
+import com.kagan.control_your_home.others.Constant.LAMP
+import com.kagan.control_your_home.others.Constant.LIVING_ROOM
+import com.kagan.control_your_home.others.Constant.LUM
+import com.kagan.control_your_home.others.Constant.MOTION_SENSOR
+import com.kagan.control_your_home.others.Constant.ROOMS
+import com.kagan.control_your_home.others.Constant.TEMP
+import com.kagan.control_your_home.others.Constant.TV
 
 class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
 
@@ -23,6 +36,7 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
     lateinit var tv: DatabaseReference
     lateinit var motionSensor: DatabaseReference
     lateinit var binding: FragmentRoomInsideBinding
+    private val args: RoomInsideFragmentArgs by navArgs()
 
     private var lightStatus: Any? = null
     private var fanStatus: Any? = null
@@ -35,14 +49,40 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         db = FirebaseDatabase.getInstance()
 
         val ref = db.reference
-        temp = ref.child("info").child("temp")
-        hum = ref.child("info").child("hum")
-        lum = ref.child("info").child("lum")
+        temp = ref.child(INFO).child(TEMP)
+        hum = ref.child(INFO).child(HUM)
+        lum = ref.child(INFO).child(LUM)
 
-        light = ref.child("device").child("light")
-        fan = ref.child("device").child("fan")
-        tv = ref.child("device").child("tv")
-        motionSensor = ref.child("device").child("motion_sensor")
+        setRoomDevice(ref)
+    }
+
+    private fun setRoomDevice(ref: DatabaseReference) {
+        when (args.nameRoom) {
+            getString(R.string.living_room) -> {
+                light = ref.child(ROOMS).child(LIVING_ROOM).child(LAMP)
+                fan = ref.child(ROOMS).child(LIVING_ROOM).child(FAN)
+                tv = ref.child(ROOMS).child(LIVING_ROOM).child(TV)
+                motionSensor = ref.child(ROOMS).child(LIVING_ROOM).child(MOTION_SENSOR)
+            }
+            getString(R.string.kitchen) -> {
+                light = ref.child(ROOMS).child(KITCHEN).child(LAMP)
+                fan = ref.child(ROOMS).child(KITCHEN).child(FAN)
+                tv = ref.child(ROOMS).child(KITCHEN).child(TV)
+                motionSensor = ref.child(ROOMS).child(KITCHEN).child(MOTION_SENSOR)
+            }
+            getString(R.string.bed_room) -> {
+                light = ref.child(ROOMS).child(BED_ROOM).child(LAMP)
+                fan = ref.child(ROOMS).child(BED_ROOM).child(FAN)
+                tv = ref.child(ROOMS).child(BED_ROOM).child(TV)
+                motionSensor = ref.child(ROOMS).child(BED_ROOM).child(MOTION_SENSOR)
+            }
+            getString(R.string.guest_room) -> {
+                light = ref.child(ROOMS).child(GUEST_ROOM).child(LAMP)
+                fan = ref.child(ROOMS).child(GUEST_ROOM).child(FAN)
+                tv = ref.child(ROOMS).child(GUEST_ROOM).child(TV)
+                motionSensor = ref.child(ROOMS).child(GUEST_ROOM).child(MOTION_SENSOR)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +92,6 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
 
         setInfo()
         setDevice()
-//        isOpenDevice()
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigateUp()
@@ -61,6 +100,8 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         binding.ivBack.setOnClickListener {
             callback.handleOnBackPressed()
         }
+
+        binding.tvName.text = args.nameRoom
 
         binding.cvLamp.setOnClickListener {
             Log.d(TAG, "onViewCreated: ghd")
@@ -74,7 +115,7 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         }
 
         binding.cvLamp.setOnLongClickListener {
-            view.findNavController().navigate(R.id.action_roomInsideFragment_to_deviceFragment2)
+            navigate(getString(R.string.lamp))
             return@setOnLongClickListener true
         }
 
@@ -90,7 +131,7 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         }
 
         binding.cvFan.setOnLongClickListener {
-            view.findNavController().navigate(R.id.action_roomInsideFragment_to_deviceFragment2)
+            navigate(getString(R.string.fan))
             return@setOnLongClickListener true
         }
 
@@ -107,7 +148,7 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         }
 
         binding.cvTV.setOnLongClickListener {
-            view.findNavController().navigate(R.id.action_roomInsideFragment_to_deviceFragment2)
+            navigate(getString(R.string.TV))
             return@setOnLongClickListener true
         }
 
@@ -124,9 +165,14 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         }
 
         binding.cvMotionSensor.setOnLongClickListener {
-            view.findNavController().navigate(R.id.action_roomInsideFragment_to_deviceFragment2)
+            navigate(getString(R.string.motion_sensor))
             return@setOnLongClickListener true
         }
+    }
+
+    private fun navigate(value: String) {
+        val action = RoomInsideFragmentDirections.actionRoomInsideFragmentToDeviceFragment2(value)
+        findNavController().navigate(action)
     }
 
     private fun setInfo() {
@@ -210,7 +256,6 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
         motionSensor.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 motionSensorStatus = snapshot.value
-
 
                 if (motionSensorStatus as Boolean)
                     binding.tvMotionSensorCircle.setBackgroundResource(R.drawable.info_open_device)

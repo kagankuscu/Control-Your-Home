@@ -10,10 +10,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentLoginRegisterBinding
 import com.kagan.control_your_home.ui.MainActivity
-import com.kagan.control_your_home.ui.SmartHomeViewModel
+import com.kagan.control_your_home.ui.viewmodel.SmartHomeViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginRegisterFragment : Fragment(R.layout.fragment_login_register) {
 

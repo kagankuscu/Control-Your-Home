@@ -1,8 +1,8 @@
 package com.kagan.control_your_home.models
 
 data class Info(
-    val temp: Int,
-    val hum: Int,
-    val lum: Int
+    var temp: Long = 0,
+    var hum: Long = 0,
+    var lum: Long = 0
 ) {
 }

@@ -4,32 +4,26 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentRoomBinding
+import com.kagan.control_your_home.viewmodel.DBViewModel
 
 class RoomFragment : Fragment(R.layout.fragment_room) {
 
     val TAG = "RoomFragment"
     lateinit var user: FirebaseUser
-    lateinit var db: FirebaseDatabase
-    lateinit var temp: DatabaseReference
-    lateinit var hum: DatabaseReference
-    lateinit var lum: DatabaseReference
     lateinit var binding: FragmentRoomBinding
+    private val dbViewModel: DBViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         user = FirebaseAuth.getInstance().currentUser!!
-        db = FirebaseDatabase.getInstance()
-
-        val ref = db.reference
-        temp = ref.child("info").child("temp")
-        hum = ref.child("info").child("hum")
-        lum = ref.child("info").child("lum")
     }
 
 
@@ -60,9 +54,6 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
             Log.d(TAG, "onViewCreated: cvGuestRoom clicked")
             navigate(getString(R.string.guest_room))
         }
-
-
-        logUserInfo()
     }
 
     private fun logUserInfo() {
@@ -79,34 +70,11 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
     }
 
     private fun setInfo() {
-        temp.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvTemp.text = getString(R.string.info_temp, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
-        })
-
-        lum.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvLum.text = getString(R.string.info_lum, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
-        })
-
-        hum.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                binding.tvHumidity.text = getString(R.string.info_hum, snapshot.value)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "onCancelled: ", error.toException())
-            }
+        dbViewModel.getInfo()
+        dbViewModel.info.observe(viewLifecycleOwner, Observer {
+            binding.tvHumidity.text = getString(R.string.info_hum, it.hum)
+            binding.tvLum.text = getString(R.string.info_lum, it.lum)
+            binding.tvTemp.text = getString(R.string.info_temp, it.temp)
         })
     }
 }

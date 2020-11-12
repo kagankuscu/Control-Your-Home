@@ -7,30 +7,23 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentLoginBinding
 import com.kagan.control_your_home.ui.MainActivity
-import com.kagan.control_your_home.ui.viewmodel.SmartHomeViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.kagan.control_your_home.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     val TAG = "LoginFragment"
-    lateinit var viewModel: SmartHomeViewModel
-    lateinit var mAuth: FirebaseAuth
+    lateinit var viewModel: LoginViewModel
     lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mAuth = FirebaseAuth.getInstance()
 
-        val currentUser = mAuth.currentUser;
-        Log.d(TAG, "current User :${currentUser?.displayName}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +53,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             binding.progressBar.visibility = View.VISIBLE
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                checkAuth(email, password)
-            }
+            Log.d(TAG, "onViewCreated: before auth check")
+            viewModel.signInWithEmail(email, password)
+            viewModel.authUser.observe(viewLifecycleOwner, Observer {
+                findNavController().navigate(R.id.action_loginFragment_to_roomFragment)
+            })
         }
 
         binding.tvSignUp.setOnClickListener {
@@ -76,23 +71,5 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val imm =
             this.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-    }
-
-    private suspend fun checkAuth(email: String, password: String) {
-        mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    view.let {
-                        findNavController().navigate(R.id.action_loginFragment_to_roomFragment)
-                    }
-                } else {
-                    Toast.makeText(
-                        context,
-                        "Failed",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            }
     }
 }

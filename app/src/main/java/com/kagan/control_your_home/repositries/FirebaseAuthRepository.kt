@@ -10,6 +10,18 @@ class FirebaseAuthRepository {
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
+    fun getCurrentUser(): MutableLiveData<User> {
+        val currentUser = MutableLiveData<User>()
+        firebaseAuth.currentUser?.let {
+            val uid = it.uid
+            val userName = it.displayName
+            val email = it.email
+            currentUser.value = User(uid, userName, email!!)
+        }
+
+        return currentUser
+    }
+
     fun checkAuth(email: String, password: String): MutableLiveData<User> {
         val authUser = MutableLiveData<User>()
 

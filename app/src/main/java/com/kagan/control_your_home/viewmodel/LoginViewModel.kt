@@ -12,7 +12,11 @@ class LoginViewModel : ViewModel() {
     private val firebaseAuthRepository = FirebaseAuthRepository()
     lateinit var authUser: LiveData<User>
     lateinit var newUser: LiveData<User>
+    lateinit var currentUser: LiveData<User>
 
+    fun getCurrentUser() {
+        currentUser = firebaseAuthRepository.getCurrentUser()
+    }
     fun signInWithEmail(email: String, password: String) {
         authUser = firebaseAuthRepository.checkAuth(email, password)
     }

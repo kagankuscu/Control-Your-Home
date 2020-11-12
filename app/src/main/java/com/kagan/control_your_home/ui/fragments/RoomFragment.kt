@@ -13,27 +13,21 @@ import com.google.firebase.database.*
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentRoomBinding
 import com.kagan.control_your_home.viewmodel.DBViewModel
+import com.kagan.control_your_home.viewmodel.LoginViewModel
 
 class RoomFragment : Fragment(R.layout.fragment_room) {
 
     val TAG = "RoomFragment"
-    lateinit var user: FirebaseUser
     lateinit var binding: FragmentRoomBinding
     private val dbViewModel: DBViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        user = FirebaseAuth.getInstance().currentUser!!
-    }
-
+    private val authViewModel: LoginViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRoomBinding.bind(view)
 
         setInfo()
-
-        binding.tvName.text = user.email
+        setCurrentUser()
 
         binding.cvLivingRoom.setOnClickListener {
             Log.d(TAG, "onViewCreated: cvLivingRoom clicked")
@@ -56,12 +50,16 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
         }
     }
 
-    private fun logUserInfo() {
-        Log.d(TAG, "Email Verified: ${user.isEmailVerified}")
-        Log.d(TAG, "Email: ${user.email}")
-        Log.d(TAG, "Name: ${user.displayName}")
-        Log.d(TAG, "Number: ${user.phoneNumber}")
-        Log.d(TAG, "photo url: ${user.photoUrl}")
+    private fun setCurrentUser() {
+        authViewModel.getCurrentUser()
+        authViewModel.currentUser.observe(viewLifecycleOwner, Observer {
+            it.email.let { email ->
+                binding.tvName.text = email
+            }
+            it.userName?.let { userName ->
+                binding.tvName.text = userName
+            }
+        })
     }
 
     private fun navigate(value: String) {

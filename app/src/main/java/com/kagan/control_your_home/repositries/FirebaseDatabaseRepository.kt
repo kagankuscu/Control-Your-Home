@@ -38,7 +38,7 @@ class FirebaseDatabaseRepository {
     }
 
     fun getRealTimeInfo(): MutableLiveData<Info> {
-        var info = MutableLiveData<Info>()
+        val info = MutableLiveData<Info>()
 
         infoCollectionRef.addSnapshotListener { value, error ->
             error?.let {

@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/loginRegisterFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginRegisterFragment"
-        android:label="LoginRegisterFragment" />
+        android:label="LoginRegisterFragment" >
+        <action
+            android:id="@+id/action_loginRegisterFragment_to_roomFragment"
+            app:destination="@id/roomFragment" />
+    </fragment>
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomFragment"

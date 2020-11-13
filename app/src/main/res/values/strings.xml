@@ -30,7 +30,7 @@
     <string name="from">From</string>
     <string name="to">To</string>
     <string name="start_time">Start Time</string>
-    <string name="info_temp">%s C</string>
-    <string name="info_hum">%s %%</string>
-    <string name="info_lum">%s lm</string>
+    <string name="info_temp">%d C</string>
+    <string name="info_hum">%d %%</string>
+    <string name="info_lum">%d lm</string>
 </resources>

@@ -9,13 +9,13 @@ object Constant {
 
 
     const val ROOMS = "rooms"
-    const val LIVING_ROOM = "living_room"
+    const val LIVING_ROOM = "livingRoom"
     const val KITCHEN = "kitchen"
-    const val BED_ROOM = "bed_room"
-    const val GUEST_ROOM = "guest_room"
+    const val BED_ROOM = "bedRoom"
+    const val GUEST_ROOM = "guestRoom"
 
     const val LAMP = "lamp"
     const val FAN = "fan"
     const val TV = "tv"
-    const val MOTION_SENSOR = "motion_sensor"
+    const val MOTION_SENSOR = "motionSensor"
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -18,12 +19,17 @@ import com.kagan.control_your_home.viewmodel.LoginViewModel
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     val TAG = "LoginFragment"
-    lateinit var viewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     lateinit var binding: FragmentLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        loginViewModel.getCurrentUser()
+        Log.d(TAG, "onViewCreated: current user: ${loginViewModel.currentUser.value}")
+        if (loginViewModel.currentUser.value != null) {
+            findNavController().navigate(R.id.action_loginFragment_to_roomFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +38,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         // When i turn the phone app suddenly close i solved the problem
         // changing viewModel initialized from onCreate to onViewCreated
-        viewModel = (activity as MainActivity).viewModel
 
 
         binding.btnLogin.setOnClickListener {
@@ -54,8 +59,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             binding.progressBar.visibility = View.VISIBLE
 
             Log.d(TAG, "onViewCreated: before auth check")
-            viewModel.signInWithEmail(email, password)
-            viewModel.authUser.observe(viewLifecycleOwner, Observer {
+            loginViewModel.signInWithEmail(email, password)
+            loginViewModel.authUser.observe(viewLifecycleOwner, Observer {
                 findNavController().navigate(R.id.action_loginFragment_to_roomFragment)
             })
         }

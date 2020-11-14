@@ -53,10 +53,14 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
     private fun setCurrentUser() {
         authViewModel.getCurrentUser()
         authViewModel.currentUser.observe(viewLifecycleOwner, Observer {
-            if (it.userName?.isNotEmpty()!!) {
-                binding.tvName.text = it.userName
-            } else {
+            if (it.userName == null) {
                 binding.tvName.text = it.email
+            } else {
+                if (it.userName.isNotEmpty()) {
+                    binding.tvName.text = it.userName
+                } else {
+                    binding.tvName.text = it.email
+                }
             }
         })
     }

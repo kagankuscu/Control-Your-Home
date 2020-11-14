@@ -17,11 +17,16 @@ class LoginViewModel : ViewModel() {
     fun getCurrentUser() {
         currentUser = firebaseAuthRepository.getCurrentUser()
     }
+
     fun signInWithEmail(email: String, password: String) {
         authUser = firebaseAuthRepository.checkAuth(email, password)
     }
 
     fun createNewAccount(email: String, password: String) {
         newUser = firebaseAuthRepository.createNewAccount(email, password)
+    }
+
+    fun updateUserInfo(displayName: String, photoURL: String?) {
+        firebaseAuthRepository.updateUserInfo(displayName, photoURL)
     }
 }

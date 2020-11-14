@@ -1,9 +1,11 @@
 package com.kagan.control_your_home.repositries
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.kagan.control_your_home.models.User
 
 class FirebaseAuthRepository {
@@ -58,5 +60,19 @@ class FirebaseAuthRepository {
                 }
             }
         return createUser
+    }
+
+    fun updateUserInfo(name: String, photo: String?) {
+        val user = firebaseAuth.currentUser
+        val profileChangeRequest = UserProfileChangeRequest.Builder()
+            .setDisplayName(name)
+            .setPhotoUri(Uri.parse(photo))
+            .build()
+
+        user!!.updateProfile(profileChangeRequest)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful)
+                    Log.d("Login", "updateUserInfo: ")
+            }
     }
 }

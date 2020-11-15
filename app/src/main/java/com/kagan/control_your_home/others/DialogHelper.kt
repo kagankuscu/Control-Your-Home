@@ -22,7 +22,7 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
     }
 
     fun createDayDialog(): AlertDialog.Builder? {
-        val selectedItems = ArrayList<Int>()
+        val selectedItems = ArrayList<String>()
         val checkDays = BooleanArray(7)
 
         return AlertDialog.Builder(baseContext)
@@ -32,10 +32,10 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
                 checkDays,
                 DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
                     if (isChecked) {
-                        selectedItems.add(which)
+                        selectedItems.add(resources.getStringArray(R.array.days)[which])
                         checkDays[which] = true
                     } else {
-                        selectedItems.remove(Integer.valueOf(which))
+                        selectedItems.remove(resources.getStringArray(R.array.days)[which])
                         checkDays[which] = false
                     }
                 })

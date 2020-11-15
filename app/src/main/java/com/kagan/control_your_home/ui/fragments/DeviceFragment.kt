@@ -16,8 +16,10 @@ import com.kagan.control_your_home.databinding.FragmentDeviceBinding
 import com.kagan.control_your_home.others.Constant.FROM
 import com.kagan.control_your_home.others.Constant.TO
 import com.kagan.control_your_home.others.DialogHelper
+import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import com.kagan.control_your_home.viewmodel.TimeViewModel
+import java.text.SimpleDateFormat
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -27,12 +29,14 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     private val dbViewModel: DBViewModel by viewModels()
     private lateinit var timeViewModel: TimeViewModel
     lateinit var dialogHelper: DialogHelper
+    lateinit var schedule: ScheduleTaskHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeviceBinding.bind(view)
         dialogHelper = DialogHelper(requireContext())
         timeViewModel = ViewModelProvider(requireActivity()).get(TimeViewModel::class.java)
+        schedule = ScheduleTaskHelper(context)
 
         Log.d(TAG, TAG)
 
@@ -97,45 +101,13 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
     private fun setTime() {
         timeViewModel.startTime.observe(viewLifecycleOwner, {
-            if (it[0] >= 12) {
-                when (it[0]) {
-                    13 -> binding.tvFrom.text = getString(R.string.test, 1, it[1])
-                    14 -> binding.tvFrom.text = getString(R.string.test, 2, it[1])
-                    15 -> binding.tvFrom.text = getString(R.string.test, 3, it[1])
-                    16 -> binding.tvFrom.text = getString(R.string.test, 4, it[1])
-                    17 -> binding.tvFrom.text = getString(R.string.test, 5, it[1])
-                    18 -> binding.tvFrom.text = getString(R.string.test, 6, it[1])
-                    19 -> binding.tvFrom.text = getString(R.string.test, 7, it[1])
-                    20 -> binding.tvFrom.text = getString(R.string.test, 8, it[1])
-                    21 -> binding.tvFrom.text = getString(R.string.test, 9, it[1])
-                    22 -> binding.tvFrom.text = getString(R.string.test, 10, it[1])
-                    23 -> binding.tvFrom.text = getString(R.string.test, 11, it[1])
-                    24 -> binding.tvFrom.text = getString(R.string.test, 12, it[1])
-                }
-            } else {
-                binding.tvFrom.text = getString(R.string.test, it[0], it[1])
-            }
+            binding.tvFrom.text = SimpleDateFormat.getTimeInstance().format(it)
+            schedule.setAlarm(it)
+            Log.d(TAG, "open: ${SimpleDateFormat.getTimeInstance().format(it)}")
         })
 
         timeViewModel.endTime.observe(viewLifecycleOwner, {
-            if (it[0] >= 12) {
-                when (it[0]) {
-                    13 -> binding.tvTo.text = getString(R.string.test, 1, it[1])
-                    14 -> binding.tvTo.text = getString(R.string.test, 2, it[1])
-                    15 -> binding.tvTo.text = getString(R.string.test, 3, it[1])
-                    16 -> binding.tvTo.text = getString(R.string.test, 4, it[1])
-                    17 -> binding.tvTo.text = getString(R.string.test, 5, it[1])
-                    18 -> binding.tvTo.text = getString(R.string.test, 6, it[1])
-                    19 -> binding.tvTo.text = getString(R.string.test, 7, it[1])
-                    20 -> binding.tvTo.text = getString(R.string.test, 8, it[1])
-                    21 -> binding.tvTo.text = getString(R.string.test, 9, it[1])
-                    22 -> binding.tvTo.text = getString(R.string.test, 10, it[1])
-                    23 -> binding.tvTo.text = getString(R.string.test, 11, it[1])
-                    24 -> binding.tvTo.text = getString(R.string.test, 12, it[1])
-                }
-            } else {
-                binding.tvTo.text = getString(R.string.test, it[0], it[1])
-            }
+            binding.tvFrom.text = SimpleDateFormat.getTimeInstance().format(it)
         })
     }
 

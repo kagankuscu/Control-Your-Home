@@ -5,12 +5,8 @@ import androidx.lifecycle.ViewModel
 
 class TimeViewModel : ViewModel() {
 
-    val startTime = MutableLiveData<List<Int>>()
+    val startTime = MutableLiveData<Long>()
 
-    val endTime = MutableLiveData<List<Int>>()
+    val endTime = MutableLiveData<Long>()
 
-    init {
-        startTime.value = arrayListOf(0, 0)
-        endTime.value = arrayListOf(0, 0)
-    }
 }

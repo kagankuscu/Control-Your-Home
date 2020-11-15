@@ -8,7 +8,7 @@
         android:id="@+id/loginFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_loginRegisterFragment"
             app:destination="@id/loginRegisterFragment" />
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/loginRegisterFragment"
         android:name="com.kagan.control_your_home.ui.fragments.LoginRegisterFragment"
-        android:label="LoginRegisterFragment" >
+        android:label="LoginRegisterFragment">
         <action
             android:id="@+id/action_loginRegisterFragment_to_roomFragment"
             app:destination="@id/roomFragment" />
@@ -27,7 +27,7 @@
     <fragment
         android:id="@+id/roomFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomFragment"
-        android:label="RoomFragment" >
+        android:label="RoomFragment">
         <action
             android:id="@+id/action_roomFragment_to_roomInsideFragment"
             app:destination="@id/roomInsideFragment" />
@@ -35,15 +35,18 @@
     <fragment
         android:id="@+id/deviceFragment"
         android:name="com.kagan.control_your_home.ui.fragments.DeviceFragment"
-        android:label="DeviceFragment" >
+        android:label="DeviceFragment">
         <argument
             android:name="device_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_deviceFragment_to_timePickerFragment"
+            app:destination="@id/timePickerFragment" />
     </fragment>
     <fragment
         android:id="@+id/roomInsideFragment"
         android:name="com.kagan.control_your_home.ui.fragments.RoomInsideFragment"
-        android:label="RoomInsideFragment" >
+        android:label="RoomInsideFragment">
         <action
             android:id="@+id/action_roomInsideFragment_to_deviceFragment2"
             app:destination="@id/deviceFragment" />
@@ -51,4 +54,15 @@
             android:name="name_room"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/timePickerFragment"
+        android:name="com.kagan.control_your_home.ui.fragments.TimePickerFragment"
+        android:label="TimePickerFragment">
+        <action
+            android:id="@+id/action_timePickerFragment_to_deviceFragment"
+            app:destination="@id/deviceFragment" />
+        <argument
+            android:name="time"
+            app:argType="string" />
+    </dialog>
 </navigation>

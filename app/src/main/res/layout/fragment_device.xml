@@ -172,6 +172,7 @@
                         android:textSize="@dimen/card_view_from_text_size" />
 
                     <TextView
+                        android:id="@+id/tvFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time"
@@ -205,6 +206,7 @@
                         android:textSize="@dimen/card_view_from_text_size" />
 
                     <TextView
+                        android:id="@+id/tvTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time"
@@ -217,8 +219,8 @@
                 android:id="@+id/flRepeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/input"
                 android:layout_marginTop="@dimen/frame_layout_margin_top"
+                android:background="@drawable/input"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -234,6 +236,7 @@
                     android:textSize="@dimen/card_view_from_text_size" />
 
                 <TextView
+                    android:id="@+id/tvDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"

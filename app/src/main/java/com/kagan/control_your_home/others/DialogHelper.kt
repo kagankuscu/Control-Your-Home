@@ -6,9 +6,12 @@ import android.content.ContextWrapper
 import android.content.DialogInterface
 import android.util.Log
 import com.kagan.control_your_home.R
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DialogHelper(base: Context?) : ContextWrapper(base) {
     val TAG = "DeviceFragment"
+    private var selectedItems = ArrayList<String>()
 
     fun createTimeDialog(): AlertDialog.Builder? {
         return AlertDialog.Builder(baseContext)
@@ -22,7 +25,6 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
     }
 
     fun createDayDialog(): AlertDialog.Builder? {
-        val selectedItems = ArrayList<String>()
         val checkDays = BooleanArray(7)
 
         return AlertDialog.Builder(baseContext)
@@ -32,16 +34,13 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
                 checkDays,
                 DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
                     if (isChecked) {
-                        selectedItems.add(resources.getStringArray(R.array.days)[which])
+                        selectedItems.add(resources.getStringArray(R.array.days_short)[which])
                         checkDays[which] = true
                     } else {
-                        selectedItems.remove(resources.getStringArray(R.array.days)[which])
+                        selectedItems.remove(resources.getStringArray(R.array.days_short)[which])
                         checkDays[which] = false
                     }
                 })
-            .setPositiveButton("OK", DialogInterface.OnClickListener { _, which ->
-                Log.d(TAG, "positive: day,$which")
-            })
             .setNeutralButton("Reset", DialogInterface.OnClickListener { _, _ ->
                 Log.d(TAG, "neutral")
                 selectedItems.clear()
@@ -52,5 +51,18 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
             .setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
                 Log.d(TAG, "negative: ")
             })
+    }
+
+    fun getDays(): String {
+        selectedItems.sort()
+        var list = ""
+
+        list = if (selectedItems.size == 7) {
+            "Everyday"
+        } else {
+            Arrays.toString(selectedItems.toArray()).replace("[", "")
+                .replace("]", "");
+        }
+        return list
     }
 }

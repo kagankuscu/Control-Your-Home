@@ -18,4 +18,7 @@ object Constant {
     const val FAN = "fan"
     const val TV = "tv"
     const val MOTION_SENSOR = "motionSensor"
+
+    const val FROM = "from"
+    const val TO = "to"
 }

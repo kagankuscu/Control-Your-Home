@@ -1,6 +1,5 @@
 package com.kagan.control_your_home.ui.fragments
 
-import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +8,16 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentDeviceBinding
+import com.kagan.control_your_home.others.Constant.FROM
+import com.kagan.control_your_home.others.Constant.TO
 import com.kagan.control_your_home.others.DialogHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
-import kotlin.collections.ArrayList
+import com.kagan.control_your_home.viewmodel.TimeViewModel
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -23,23 +25,20 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     lateinit var binding: FragmentDeviceBinding
     private val args: DeviceFragmentArgs by navArgs()
     private val dbViewModel: DBViewModel by viewModels()
+    private lateinit var timeViewModel: TimeViewModel
     lateinit var dialogHelper: DialogHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeviceBinding.bind(view)
         dialogHelper = DialogHelper(requireContext())
-
-        val fromDialog = dialogHelper.createTimeDialog()
-        val toDialog = dialogHelper.createTimeDialog()
         val repeat = dialogHelper.createDayDialog()
-
-        fromDialog?.setMessage("Start Time")
-        toDialog?.setMessage("Finish Time")
+        timeViewModel = ViewModelProvider(requireActivity()).get(TimeViewModel::class.java)
 
         Log.d(TAG, TAG)
 
         setInfo()
+        setTime()
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigateUp()
@@ -52,17 +51,64 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         }
 
         binding.cvFrom.setOnClickListener {
-            fromDialog?.show()
+            navigateToTimePicker(FROM)
         }
 
         binding.cvTo.setOnClickListener {
-            toDialog?.show()
+            navigateToTimePicker(TO)
         }
 
         binding.flRepeat.setOnClickListener {
             Log.d(TAG, "onViewCreated: ")
-            repeat?.show()
+            repeat?.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                Log.d(TAG, "onViewCreated: ${dialogHelper.getDays()}")
+                binding.tvDays.text = dialogHelper.getDays()
+            })?.show()
         }
+    }
+
+    private fun setTime() {
+        timeViewModel.startTime.observe(viewLifecycleOwner, {
+            if (it[0] >= 12) {
+                when (it[0]) {
+                    13 -> binding.tvFrom.text = getString(R.string.test, 1, it[1])
+                    14 -> binding.tvFrom.text = getString(R.string.test, 2, it[1])
+                    15 -> binding.tvFrom.text = getString(R.string.test, 3, it[1])
+                    16 -> binding.tvFrom.text = getString(R.string.test, 4, it[1])
+                    17 -> binding.tvFrom.text = getString(R.string.test, 5, it[1])
+                    18 -> binding.tvFrom.text = getString(R.string.test, 6, it[1])
+                    19 -> binding.tvFrom.text = getString(R.string.test, 7, it[1])
+                    20 -> binding.tvFrom.text = getString(R.string.test, 8, it[1])
+                    21 -> binding.tvFrom.text = getString(R.string.test, 9, it[1])
+                    22 -> binding.tvFrom.text = getString(R.string.test, 10, it[1])
+                    23 -> binding.tvFrom.text = getString(R.string.test, 11, it[1])
+                    24 -> binding.tvFrom.text = getString(R.string.test, 12, it[1])
+                }
+            } else {
+                binding.tvFrom.text = getString(R.string.test, it[0], it[1])
+            }
+        })
+
+        timeViewModel.endTime.observe(viewLifecycleOwner, {
+            if (it[0] >= 12) {
+                when (it[0]) {
+                    13 -> binding.tvTo.text = getString(R.string.test, 1, it[1])
+                    14 -> binding.tvTo.text = getString(R.string.test, 2, it[1])
+                    15 -> binding.tvTo.text = getString(R.string.test, 3, it[1])
+                    16 -> binding.tvTo.text = getString(R.string.test, 4, it[1])
+                    17 -> binding.tvTo.text = getString(R.string.test, 5, it[1])
+                    18 -> binding.tvTo.text = getString(R.string.test, 6, it[1])
+                    19 -> binding.tvTo.text = getString(R.string.test, 7, it[1])
+                    20 -> binding.tvTo.text = getString(R.string.test, 8, it[1])
+                    21 -> binding.tvTo.text = getString(R.string.test, 9, it[1])
+                    22 -> binding.tvTo.text = getString(R.string.test, 10, it[1])
+                    23 -> binding.tvTo.text = getString(R.string.test, 11, it[1])
+                    24 -> binding.tvTo.text = getString(R.string.test, 12, it[1])
+                }
+            } else {
+                binding.tvTo.text = getString(R.string.test, it[0], it[1])
+            }
+        })
     }
 
     private fun setInfo() {
@@ -72,5 +118,10 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             binding.tvLum.text = getString(R.string.info_lum, it.lum)
             binding.tvTemp.text = getString(R.string.info_temp, it.temp)
         })
+    }
+
+    private fun navigateToTimePicker(time: String) {
+        val action = DeviceFragmentDirections.actionDeviceFragmentToTimePickerFragment(time)
+        findNavController().navigate(action)
     }
 }

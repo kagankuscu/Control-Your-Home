@@ -86,25 +86,35 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
     private fun createDayDialog(): AlertDialog.Builder? {
         val selectedItems = ArrayList<Int>()
+        val checkDays = BooleanArray(7)
 
         return activity?.let {
             AlertDialog.Builder(it)
                 .setTitle("Days")
                 .setMultiChoiceItems(
                     R.array.days,
-                    null,
+                    checkDays,
                     DialogInterface.OnMultiChoiceClickListener { dialog, which, isChecked ->
                         if (isChecked) {
                             selectedItems.add(which)
+                            checkDays[which] = true
                         } else {
                             selectedItems.remove(Integer.valueOf(which))
+                            checkDays[which] = false
                         }
                     })
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-                    Log.d(TAG, "createDayDialog: day,$which")
+                    Log.d(TAG, "positive: day,$which")
+                })
+                .setNeutralButton("Reset", DialogInterface.OnClickListener { dialog, which ->
+                    Log.d(TAG, "neutral")
+                    selectedItems.clear()
+                    for (i in checkDays.indices) {
+                        checkDays[i] = false
+                    }
                 })
                 .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-                    Log.d(TAG, "createDayDialog: ")
+                    Log.d(TAG, "negative: ")
                 })
         }
     }

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kagan.control_your_home.R
 import com.kagan.control_your_home.databinding.FragmentDeviceBinding
+import com.kagan.control_your_home.others.DialogHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import kotlin.collections.ArrayList
 
@@ -22,13 +23,16 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     lateinit var binding: FragmentDeviceBinding
     private val args: DeviceFragmentArgs by navArgs()
     private val dbViewModel: DBViewModel by viewModels()
+    lateinit var dialogHelper: DialogHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeviceBinding.bind(view)
-        val fromDialog = createTimeDialog()
-        val toDialog = createTimeDialog()
-        val repeat = createDayDialog()
+        dialogHelper = DialogHelper(requireContext())
+
+        val fromDialog = dialogHelper.createTimeDialog()
+        val toDialog = dialogHelper.createTimeDialog()
+        val repeat = dialogHelper.createDayDialog()
 
         fromDialog?.setMessage("Start Time")
         toDialog?.setMessage("Finish Time")
@@ -61,20 +65,6 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         }
     }
 
-
-    private fun createTimeDialog(): AlertDialog.Builder? {
-        return activity?.let {
-            AlertDialog.Builder(it)
-                .setTitle("Time")
-                .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, id ->
-                    Log.d(TAG, "createDialog: $dialog $id")
-                })
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, id ->
-                    Log.d(TAG, "createDialog: $dialog $id")
-                })
-        }
-    }
-
     private fun setInfo() {
         dbViewModel.getInfo()
         dbViewModel.info.observe(viewLifecycleOwner, Observer {
@@ -82,40 +72,5 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             binding.tvLum.text = getString(R.string.info_lum, it.lum)
             binding.tvTemp.text = getString(R.string.info_temp, it.temp)
         })
-    }
-
-    private fun createDayDialog(): AlertDialog.Builder? {
-        val selectedItems = ArrayList<Int>()
-        val checkDays = BooleanArray(7)
-
-        return activity?.let {
-            AlertDialog.Builder(it)
-                .setTitle("Days")
-                .setMultiChoiceItems(
-                    R.array.days,
-                    checkDays,
-                    DialogInterface.OnMultiChoiceClickListener { dialog, which, isChecked ->
-                        if (isChecked) {
-                            selectedItems.add(which)
-                            checkDays[which] = true
-                        } else {
-                            selectedItems.remove(Integer.valueOf(which))
-                            checkDays[which] = false
-                        }
-                    })
-                .setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
-                    Log.d(TAG, "positive: day,$which")
-                })
-                .setNeutralButton("Reset", DialogInterface.OnClickListener { dialog, which ->
-                    Log.d(TAG, "neutral")
-                    selectedItems.clear()
-                    for (i in checkDays.indices) {
-                        checkDays[i] = false
-                    }
-                })
-                .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which ->
-                    Log.d(TAG, "negative: ")
-                })
-        }
     }
 }

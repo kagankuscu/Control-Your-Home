@@ -146,11 +146,22 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/sOnOff"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:track="?attr/colorSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/tvStartTime"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvStartTime"
+                app:layout_constraintTop_toTopOf="@+id/tvStartTime" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cvFrom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/control_room_margin_top"
+                android:alpha="0.75"
                 app:layout_constraintBottom_toBottomOf="@+id/cvTo"
                 app:layout_constraintEnd_toStartOf="@+id/cvTo"
                 app:layout_constraintStart_toStartOf="parent"
@@ -175,7 +186,6 @@
                         android:id="@+id/tvFrom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/time"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_time_text_size" />
                 </LinearLayout>
@@ -186,6 +196,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/card_view_margin_start"
+                android:alpha="0.75"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cvFrom"
                 app:layout_constraintTop_toTopOf="@+id/cvFrom">
@@ -209,7 +220,6 @@
                         android:id="@+id/tvTo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/time"
                         android:textColor="@color/white"
                         android:textSize="@dimen/card_view_time_text_size" />
                 </LinearLayout>
@@ -220,6 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/frame_layout_margin_top"
+                android:alpha="0.75"
                 android:background="@drawable/input"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

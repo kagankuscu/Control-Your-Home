@@ -32,7 +32,6 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeviceBinding.bind(view)
         dialogHelper = DialogHelper(requireContext())
-        val repeat = dialogHelper.createDayDialog()
         timeViewModel = ViewModelProvider(requireActivity()).get(TimeViewModel::class.java)
 
         Log.d(TAG, TAG)
@@ -44,11 +43,24 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             findNavController().navigateUp()
         }
 
-        binding.tvName.text = args.deviceName
-
         binding.ivBack.setOnClickListener {
             callback.handleOnBackPressed()
         }
+
+        binding.tvName.text = args.deviceName
+
+        binding.sOnOff.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                open()
+            } else {
+                close()
+            }
+        }
+    }
+
+    private fun open() {
+        setAlpha()
+        val repeat = dialogHelper.createDayDialog()
 
         binding.cvFrom.setOnClickListener {
             navigateToTimePicker(FROM)
@@ -65,6 +77,22 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                 binding.tvDays.text = dialogHelper.getDays()
             })?.show()
         }
+    }
+
+    private fun close() {
+        binding.cvFrom.alpha = 0.75F
+        binding.cvTo.alpha = 0.75F
+        binding.flRepeat.alpha = 0.75F
+
+        binding.cvFrom.setOnClickListener(null)
+        binding.cvTo.setOnClickListener(null)
+        binding.flRepeat.setOnClickListener(null)
+    }
+
+    private fun setAlpha() {
+        binding.cvFrom.alpha = 1F
+        binding.cvTo.alpha = 1F
+        binding.flRepeat.alpha = 1F
     }
 
     private fun setTime() {

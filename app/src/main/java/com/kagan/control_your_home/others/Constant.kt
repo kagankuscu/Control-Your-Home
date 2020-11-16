@@ -7,7 +7,6 @@ object Constant {
     const val HUM = "hum"
     const val LUM = "lum"
 
-
     const val ROOMS = "rooms"
     const val LIVING_ROOM = "livingRoom"
     const val KITCHEN = "kitchen"
@@ -21,4 +20,7 @@ object Constant {
 
     const val FROM = "from"
     const val TO = "to"
+
+    const val NOTIFICATION_ID = "device"
+    const val NOTIFICATION_NAME = "Device Notification"
 }

@@ -9,4 +9,7 @@ class TimeViewModel : ViewModel() {
 
     val endTime = MutableLiveData<Long>()
 
+    val selectedDays = MutableLiveData<ArrayList<String>>()
+
+    val checkDays = MutableLiveData<BooleanArray>()
 }

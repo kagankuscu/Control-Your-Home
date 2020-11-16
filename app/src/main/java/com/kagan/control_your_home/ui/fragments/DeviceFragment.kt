@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -29,6 +28,9 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     private lateinit var timeViewModel: TimeViewModel
     lateinit var dialogHelper: DialogHelper
     lateinit var schedule: ScheduleTaskHelper
+
+    private val selectedDays = ArrayList<String>()
+    private var checkDays = BooleanArray(7)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,11 +66,18 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                 close()
             }
         }
+
+        timeViewModel.selectedDays.observe(viewLifecycleOwner, {
+            binding.tvDays.text = when (it.size) {
+                0 -> "Nothing"
+                7 -> "Everyday"
+                else -> FunctionConstant.formatList(it)
+            }
+        })
     }
 
     private fun open() {
         setAlpha()
-        val repeat = dialogHelper.createDayDialog()
 
         binding.cvFrom.setOnClickListener {
             navigateToTimePicker(FROM)
@@ -80,12 +89,39 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
         binding.flRepeat.setOnClickListener {
             Log.d(TAG, "onViewCreated: ")
-            repeat?.show()
+            dialogShow()
         }
+    }
 
-        dialogHelper.getDays().observe(viewLifecycleOwner, {
-            binding.tvDays.text = it
-        })
+    private fun dialogShow() {
+        val repeat = dialogHelper.createDayDialog()
+
+        repeat?.setMultiChoiceItems(
+            R.array.days,
+            checkDays,
+            DialogInterface.OnMultiChoiceClickListener { _, which, isChecked ->
+                if (isChecked) {
+                    selectedDays.add(resources.getStringArray(R.array.days_short)[which])
+                    timeViewModel.selectedDays.value = selectedDays
+                    checkDays[which] = true
+                    timeViewModel.checkDays.value = checkDays
+                } else {
+                    selectedDays.remove(resources.getStringArray(R.array.days_short)[which])
+                    timeViewModel.selectedDays.value = selectedDays
+                    checkDays[which] = false
+                    timeViewModel.checkDays.value = checkDays
+                }
+            })
+            ?.setNeutralButton("Reset", DialogInterface.OnClickListener { _, _ ->
+                selectedDays.clear()
+                timeViewModel.selectedDays.value = selectedDays
+
+                for (i in checkDays.indices) {
+                    checkDays[i] = false
+                }
+            })?.setPositiveButton("Apply", DialogInterface.OnClickListener { _, _ ->
+                Log.d(TAG, "dialogShow: ${timeViewModel.selectedDays.value}")
+            })?.show()
     }
 
     private fun close() {

@@ -8,4 +8,9 @@ object FunctionConstant {
     fun simpleDateFormat(time: Long): String {
         return SimpleDateFormat("hh:mm a", Locale.UK).format(time)
     }
+
+    fun formatList(selectedItems: ArrayList<String>): String {
+        return Arrays.toString(selectedItems.toArray()).replace("[", "")
+            .replace("]", "")
+    }
 }

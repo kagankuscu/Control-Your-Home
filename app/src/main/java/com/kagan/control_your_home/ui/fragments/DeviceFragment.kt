@@ -7,7 +7,6 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,10 +15,10 @@ import com.kagan.control_your_home.databinding.FragmentDeviceBinding
 import com.kagan.control_your_home.others.Constant.FROM
 import com.kagan.control_your_home.others.Constant.TO
 import com.kagan.control_your_home.others.DialogHelper
+import com.kagan.control_your_home.others.FunctionConstant
 import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import com.kagan.control_your_home.viewmodel.TimeViewModel
-import java.text.SimpleDateFormat
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -101,19 +100,19 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
     private fun setTime() {
         timeViewModel.startTime.observe(viewLifecycleOwner, {
-            binding.tvFrom.text = SimpleDateFormat.getTimeInstance().format(it)
+            binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
             schedule.setAlarm(it)
-            Log.d(TAG, "open: ${SimpleDateFormat.getTimeInstance().format(it)}")
+            Log.d(TAG, "open: ${FunctionConstant.simpleDateFormat(it)}")
         })
 
         timeViewModel.endTime.observe(viewLifecycleOwner, {
-            binding.tvFrom.text = SimpleDateFormat.getTimeInstance().format(it)
+            binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
         })
     }
 
     private fun setInfo() {
         dbViewModel.getInfo()
-        dbViewModel.info.observe(viewLifecycleOwner, Observer {
+        dbViewModel.info.observe(viewLifecycleOwner, {
             binding.tvHumidity.text = getString(R.string.info_hum, it.hum)
             binding.tvLum.text = getString(R.string.info_lum, it.lum)
             binding.tvTemp.text = getString(R.string.info_temp, it.temp)

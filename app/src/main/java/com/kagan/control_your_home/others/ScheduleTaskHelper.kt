@@ -8,8 +8,6 @@ import android.content.Intent
 import android.util.Log
 import com.kagan.control_your_home.broadcasts.OpenDeviceBroadcast
 import com.kagan.control_your_home.others.Constant.LIVING_ROOM
-import java.lang.Exception
-import java.text.SimpleDateFormat
 
 class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
 
@@ -27,8 +25,7 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         Log.d(
             TAG,
             "setAlarm: waiting ${
-                SimpleDateFormat.getDateTimeInstance()
-                    .format(inTimeMillis)
+                FunctionConstant.simpleDateFormat(inTimeMillis)
             }"
         )
 

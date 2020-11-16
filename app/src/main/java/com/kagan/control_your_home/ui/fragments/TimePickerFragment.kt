@@ -11,9 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.kagan.control_your_home.others.Constant.FROM
 import com.kagan.control_your_home.others.Constant.TO
-import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.TimeViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 class TimePickerFragment : DialogFragment(),
@@ -22,7 +20,6 @@ class TimePickerFragment : DialogFragment(),
     val TAG = "TimePickerFragment"
     private val args: TimePickerFragmentArgs by navArgs()
     private lateinit var timeViewModel: TimeViewModel
-    private lateinit var schedule: ScheduleTaskHelper
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()

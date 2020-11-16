@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.util.Log
+import com.kagan.control_your_home.broadcasts.CloseDeviceBroadcast
 import com.kagan.control_your_home.broadcasts.OpenDeviceBroadcast
 import com.kagan.control_your_home.others.Constant.LIVING_ROOM
 
@@ -17,8 +18,13 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         return getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
-    fun setAlarm(inTimeMillis: Long) {
-        val i = Intent(baseContext, OpenDeviceBroadcast::class.java)
+    fun setAlarm(inTimeMillis: Long, isOpen: Boolean) {
+        val broadcast = when (isOpen) {
+            true -> OpenDeviceBroadcast::class.java
+            false -> CloseDeviceBroadcast::class.java
+        }
+
+        val i = Intent(baseContext, broadcast)
         i.putExtra(LIVING_ROOM, LIVING_ROOM)
         val pendingIntent = PendingIntent.getBroadcast(baseContext, 0, i, 0)
 

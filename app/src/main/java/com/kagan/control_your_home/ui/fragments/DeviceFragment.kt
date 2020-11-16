@@ -143,12 +143,13 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     private fun setTime() {
         timeViewModel.startTime.observe(viewLifecycleOwner, {
             binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
-            schedule.setAlarm(it)
+            schedule.setAlarm(it, true)
             Log.d(TAG, "open: ${FunctionConstant.simpleDateFormat(it)}")
         })
 
         timeViewModel.endTime.observe(viewLifecycleOwner, {
-            binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
+            binding.tvTo.text = FunctionConstant.simpleDateFormat(it)
+            schedule.setAlarm(it, false)
         })
     }
 

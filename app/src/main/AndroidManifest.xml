@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".broadcasts.OpenDeviceBroadcast" />
+        <receiver android:name=".broadcasts.CloseDeviceBroadcast" />
     </application>
 
 </manifest>

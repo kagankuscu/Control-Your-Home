@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.DialogInterface
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.kagan.control_your_home.R
 import java.util.*
 import kotlin.collections.ArrayList
@@ -12,6 +13,7 @@ import kotlin.collections.ArrayList
 class DialogHelper(base: Context?) : ContextWrapper(base) {
     val TAG = "DeviceFragment"
     private var selectedItems = ArrayList<String>()
+    private val list = MutableLiveData<String>()
 
     fun createTimeDialog(): AlertDialog.Builder? {
         return AlertDialog.Builder(baseContext)
@@ -47,22 +49,24 @@ class DialogHelper(base: Context?) : ContextWrapper(base) {
                 for (i in checkDays.indices) {
                     checkDays[i] = false
                 }
-            })
-            .setNegativeButton("Cancel", DialogInterface.OnClickListener { _, _ ->
-                Log.d(TAG, "negative: ")
+                setDays()
+            }).setPositiveButton("Apply", DialogInterface.OnClickListener { _, _ ->
+                setDays()
             })
     }
 
-    fun getDays(): String {
+    private fun setDays() {
         selectedItems.sort()
-        var list = ""
 
-        list = if (selectedItems.size == 7) {
-            "Everyday"
-        } else {
-            Arrays.toString(selectedItems.toArray()).replace("[", "")
+        list.value = when (selectedItems.size) {
+            7 -> "Everyday"
+            0 -> "Nothing"
+            else -> Arrays.toString(selectedItems.toArray()).replace("[", "")
                 .replace("]", "");
         }
+    }
+
+    fun getDays(): MutableLiveData<String> {
         return list
     }
 }

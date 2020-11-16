@@ -80,11 +80,12 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
         binding.flRepeat.setOnClickListener {
             Log.d(TAG, "onViewCreated: ")
-            repeat?.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                Log.d(TAG, "onViewCreated: ${dialogHelper.getDays()}")
-                binding.tvDays.text = dialogHelper.getDays()
-            })?.show()
+            repeat?.show()
         }
+
+        dialogHelper.getDays().observe(viewLifecycleOwner, {
+            binding.tvDays.text = it
+        })
     }
 
     private fun close() {

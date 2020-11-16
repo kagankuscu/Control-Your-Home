@@ -253,7 +253,7 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/day_margin_top"
                     android:layout_marginEnd="@dimen/day_margin_end"
-                    android:text="Mon Tue Wed Thu Fri Sat"
+                    android:text="Nothing"
                     android:textColor="@color/white"
                     android:textSize="@dimen/card_view_text_size" />
             </FrameLayout>

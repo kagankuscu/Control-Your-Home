@@ -25,10 +25,15 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     val TAG = "DeviceFragment"
     lateinit var binding: FragmentDeviceBinding
     private val args: DeviceFragmentArgs by navArgs()
-    private val dbViewModel: DBViewModel by viewModels()
+    private lateinit var dbViewModel: DBViewModel
     private lateinit var timeViewModel: TimeViewModel
     lateinit var dialogHelper: DialogHelper
     lateinit var schedule: ScheduleTaskHelper
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dbViewModel = ViewModelProvider(requireActivity()).get(DBViewModel::class.java)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -111,7 +116,6 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     }
 
     private fun setInfo() {
-        dbViewModel.getInfo()
         dbViewModel.info.observe(viewLifecycleOwner, {
             binding.tvHumidity.text = getString(R.string.info_hum, it.hum)
             binding.tvLum.text = getString(R.string.info_lum, it.lum)

@@ -7,6 +7,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -30,13 +31,18 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
 
     lateinit var binding: FragmentRoomInsideBinding
     private val args: RoomInsideFragmentArgs by navArgs()
-    private val dbViewModel: DBViewModel by viewModels()
+    private lateinit var dbViewModel: DBViewModel
 
     private var lampStatus: Any? = null
     private var fanStatus: Any? = null
     private var tvStatus: Any? = null
     private var motionSensorStatus: Any? = null
     private var roomName: String = ""
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dbViewModel = ViewModelProvider(requireActivity()).get(DBViewModel::class.java)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -154,7 +160,6 @@ class RoomInsideFragment : Fragment(R.layout.fragment_room_inside) {
     }
 
     private fun setInfo() {
-        dbViewModel.getInfo()
         dbViewModel.info.observe(viewLifecycleOwner, Observer {
             binding.tvHumidity.text = getString(R.string.info_hum, it.hum)
             binding.tvLum.text = getString(R.string.info_lum, it.lum)

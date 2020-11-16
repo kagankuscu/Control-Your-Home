@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,8 +20,16 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
 
     val TAG = "RoomFragment"
     lateinit var binding: FragmentRoomBinding
-    private val dbViewModel: DBViewModel by viewModels()
+    private lateinit var dbViewModel: DBViewModel
     private val authViewModel: LoginViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        dbViewModel = ViewModelProvider(requireActivity()).get(DBViewModel::class.java)
+
+        authViewModel.getCurrentUser()
+        dbViewModel.getInfo()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +60,6 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
     }
 
     private fun setCurrentUser() {
-        authViewModel.getCurrentUser()
         authViewModel.currentUser.observe(viewLifecycleOwner, Observer {
             if (it.userName == null) {
                 binding.tvName.text = it.email
@@ -71,7 +79,6 @@ class RoomFragment : Fragment(R.layout.fragment_room) {
     }
 
     private fun setInfo() {
-        dbViewModel.getInfo()
         dbViewModel.info.observe(viewLifecycleOwner, Observer {
             binding.tvHumidity.text = getString(R.string.info_hum, it.hum)
             binding.tvLum.text = getString(R.string.info_lum, it.lum)

@@ -2,7 +2,6 @@ package com.kagan.control_your_home.ui.fragments
 
 import android.content.Context
 import android.content.DialogInterface
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -20,7 +19,6 @@ import com.kagan.control_your_home.others.FunctionConstant
 import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import com.kagan.control_your_home.viewmodel.TimeViewModel
-import kotlin.math.log
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -78,6 +76,10 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                 else -> FunctionConstant.formatList(it)
             }
         })
+
+        binding.ivApply.setOnClickListener {
+            setAlarm()
+        }
     }
 
     private fun open() {
@@ -87,8 +89,24 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             navigateToTimePicker(FROM)
         }
 
+        binding.cvFrom.setOnLongClickListener {
+            Log.d(TAG, "open: long listener from")
+            timeViewModel.startTime.value = null
+
+            schedule.cancelAlarmOpen()
+            return@setOnLongClickListener true
+        }
+
         binding.cvTo.setOnClickListener {
             navigateToTimePicker(TO)
+        }
+
+        binding.cvTo.setOnLongClickListener {
+            Log.d(TAG, "open: long listener to")
+            timeViewModel.endTime.value = null
+
+            schedule.cancelAlarmClose()
+            return@setOnLongClickListener true
         }
 
         binding.flRepeat.setOnClickListener {
@@ -137,7 +155,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         binding.cvTo.setOnClickListener(null)
         binding.flRepeat.setOnClickListener(null)
 
-        schedule.cancelAlarm()
+        schedule.cancelAlarmAll()
     }
 
     private fun setAlpha() {
@@ -149,16 +167,35 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     private fun setTime() {
         Log.d(TAG, "setTime: ")
         timeViewModel.startTime.observe(viewLifecycleOwner, {
-            binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
-            schedule.setAlarm(it, true)
-            Log.d(TAG, "open: ${FunctionConstant.simpleDateFormat(it)}")
+            if (it == null) {
+                binding.tvFrom.text = getString(R.string.set_time)
+            } else {
+                binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
+                Log.d(TAG, "open: ${FunctionConstant.simpleDateFormat(it)}")
+            }
         })
 
         timeViewModel.endTime.observe(viewLifecycleOwner, {
-            binding.tvTo.text = FunctionConstant.simpleDateFormat(it)
-            schedule.setAlarm(it, false)
-            Log.d(TAG, "close: ${FunctionConstant.simpleDateFormat(it)}")
+            if (it == null) {
+                binding.tvTo.text = getString(R.string.set_time)
+            } else {
+                binding.tvTo.text = FunctionConstant.simpleDateFormat(it)
+                Log.d(TAG, "close: ${FunctionConstant.simpleDateFormat(it)}")
+            }
         })
+    }
+
+    private fun setAlarm() {
+        timeViewModel.startTime.value?.let {
+            schedule.setAlarm(it, true)
+            Log.d(TAG, "setAlarm: inside Start time")
+        }
+
+        timeViewModel.endTime.value?.let {
+            schedule.setAlarm(it, false)
+            Log.d(TAG, "setAlarm: inside end time")
+        }
+        Log.d(TAG, "setAlarm: ")
     }
 
     private fun setInfo() {

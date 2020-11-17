@@ -54,10 +54,20 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         }
     }
 
-    fun cancelAlarm() {
+    fun cancelAlarmAll() {
         val pendingIntentBroadcastOpen = getPendingIntent(true)
         val pendingIntentBroadcastClose = getPendingIntent(false)
         getAlarmManager().cancel(pendingIntentBroadcastOpen)
+        getAlarmManager().cancel(pendingIntentBroadcastClose)
+    }
+
+    fun cancelAlarmOpen() {
+        val pendingIntentBroadcastOpen = getPendingIntent(true)
+        getAlarmManager().cancel(pendingIntentBroadcastOpen)
+    }
+
+    fun cancelAlarmClose() {
+        val pendingIntentBroadcastClose = getPendingIntent(false)
         getAlarmManager().cancel(pendingIntentBroadcastClose)
     }
 }

@@ -18,7 +18,7 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         return getSystemService(Context.ALARM_SERVICE) as AlarmManager
     }
 
-    fun setAlarm(inTimeMillis: Long, isOpen: Boolean) {
+    private fun getPendingIntent(isOpen: Boolean): PendingIntent? {
         val broadcast = when (isOpen) {
             true -> OpenDeviceBroadcast::class.java
             false -> CloseDeviceBroadcast::class.java
@@ -27,6 +27,13 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         val i = Intent(baseContext, broadcast)
         i.putExtra(LIVING_ROOM, LIVING_ROOM)
         val pendingIntent = PendingIntent.getBroadcast(baseContext, 0, i, 0)
+
+        return pendingIntent
+    }
+
+    fun setAlarm(inTimeMillis: Long, broadcast: Boolean) {
+
+        val pendingIntent = getPendingIntent(broadcast)
 
         Log.d(
             TAG,
@@ -37,7 +44,7 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
 
         try {
             getAlarmManager()
-                .set(
+                .setExact(
                     AlarmManager.RTC_WAKEUP,
                     inTimeMillis,
                     pendingIntent
@@ -45,5 +52,12 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
         } catch (e: Exception) {
             Log.d(TAG, "onTimeSet: ${e.message}")
         }
+    }
+
+    fun cancelAlarm() {
+        val pendingIntentBroadcastOpen = getPendingIntent(true)
+        val pendingIntentBroadcastClose = getPendingIntent(false)
+        getAlarmManager().cancel(pendingIntentBroadcastOpen)
+        getAlarmManager().cancel(pendingIntentBroadcastClose)
     }
 }

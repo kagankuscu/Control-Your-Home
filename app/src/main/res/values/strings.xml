@@ -34,4 +34,8 @@
     <string name="info_hum">%d %%</string>
     <string name="info_lum">%d lm</string>
     <string name="test">%d:%d</string>
+    <string name="btn_on_off_status_key">btn_on_off_status_key</string>
+    <string name="tv_start_time_key">tv_start_time_key</string>
+    <string name="tv_end_time_key">tv_end_time_key</string>
+    <string name="tv_days_days_key">tv_days_days_key</string>
 </resources>

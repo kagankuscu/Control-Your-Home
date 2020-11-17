@@ -41,6 +41,7 @@ class NotificationHelper(base: Context?) : ContextWrapper(base) {
             .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentTitle(contentTitle)
             .setContentText(contentText)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
         getNotificationManager().notify(1, not)

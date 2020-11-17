@@ -1,6 +1,8 @@
 package com.kagan.control_your_home.ui.fragments
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -18,6 +20,7 @@ import com.kagan.control_your_home.others.FunctionConstant
 import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import com.kagan.control_your_home.viewmodel.TimeViewModel
+import kotlin.math.log
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -48,6 +51,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
         setInfo()
         setTime()
+        restoreUIState()
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigateUp()
@@ -132,6 +136,8 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         binding.cvFrom.setOnClickListener(null)
         binding.cvTo.setOnClickListener(null)
         binding.flRepeat.setOnClickListener(null)
+
+        schedule.cancelAlarm()
     }
 
     private fun setAlpha() {
@@ -141,6 +147,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     }
 
     private fun setTime() {
+        Log.d(TAG, "setTime: ")
         timeViewModel.startTime.observe(viewLifecycleOwner, {
             binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
             schedule.setAlarm(it, true)
@@ -150,6 +157,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         timeViewModel.endTime.observe(viewLifecycleOwner, {
             binding.tvTo.text = FunctionConstant.simpleDateFormat(it)
             schedule.setAlarm(it, false)
+            Log.d(TAG, "close: ${FunctionConstant.simpleDateFormat(it)}")
         })
     }
 
@@ -164,5 +172,66 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
     private fun navigateToTimePicker(time: String) {
         val action = DeviceFragmentDirections.actionDeviceFragmentToTimePickerFragment(time)
         findNavController().navigate(action)
+    }
+
+    private fun saveUIState() {
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+
+        with(sharedPref.edit()) {
+            putBoolean(getString(R.string.btn_on_off_status_key), binding.sOnOff.isChecked)
+
+            timeViewModel.startTime.value?.let {
+                putLong(
+                    getString(R.string.tv_start_time_key),
+                    it
+                )
+            }
+
+            timeViewModel.endTime.value?.let {
+                putLong(
+                    getString(R.string.tv_end_time_key),
+                    it
+                )
+            }
+
+            putString(
+                getString(R.string.tv_days_days_key),
+                binding.tvDays.text.toString()
+            )
+
+            commit()
+        }
+    }
+
+    private fun restoreUIState() {
+        Log.d(TAG, "restoreUIState: ")
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        binding.sOnOff.isChecked =
+            sharedPref.getBoolean(getString(R.string.btn_on_off_status_key), false)
+
+        if (binding.sOnOff.isChecked) {
+            open()
+        }
+
+        binding.tvFrom.text =
+            FunctionConstant.simpleDateFormat(
+                sharedPref.getLong(
+                    getString(R.string.tv_start_time_key),
+                    0
+                )
+            )
+        binding.tvTo.text =
+            FunctionConstant.simpleDateFormat(
+                sharedPref.getLong(
+                    getString(R.string.tv_end_time_key),
+                    0
+                )
+            )
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: saving UI States")
+        saveUIState()
     }
 }

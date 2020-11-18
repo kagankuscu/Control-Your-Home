@@ -42,6 +42,10 @@ class TimePickerFragment : DialogFragment(),
             0
         )
 
+        timeViewModel.selectedDays.value?.forEach {
+            Log.d(TAG, "onTimeSet: $it")
+        }
+
         when (args.time) {
             FROM -> {
                 timeViewModel.startTime.value = c.timeInMillis

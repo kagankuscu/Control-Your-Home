@@ -236,6 +236,18 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                 binding.tvDays.text.toString()
             )
 
+            putInt(getString(R.string.array_checkDays_size), checkDays.size)
+
+            for (i in checkDays.indices) {
+                putBoolean(getString(R.string.array_checkDays_value, i), checkDays[i])
+            }
+
+            putInt(getString(R.string.array_selected_day_size), selectedDays.size)
+
+            for (i in selectedDays.indices) {
+                putString(getString(R.string.array_selected_day_value, i), selectedDays[i])
+            }
+
             commit()
         }
     }
@@ -264,6 +276,23 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
                     0
                 )
             )
+
+        binding.tvDays.text = sharedPref.getString(getString(R.string.tv_days_days_key), "")
+
+        val arraySize = sharedPref.getInt(getString(R.string.array_checkDays_size), 0)
+
+        for (i in 0 until arraySize) {
+            checkDays[i] =
+                sharedPref.getBoolean(getString(R.string.array_checkDays_value, i), false)
+        }
+
+        val selectedDaysSize = sharedPref.getInt(getString(R.string.array_selected_day_size), 0)
+
+        for (i in 0 until selectedDaysSize) {
+            selectedDays.add(
+                sharedPref.getString(getString(R.string.array_selected_day_value, i), "").toString()
+            )
+        }
     }
 
     override fun onStop() {

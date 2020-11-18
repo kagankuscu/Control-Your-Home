@@ -40,4 +40,8 @@
     <string name="tv_days_days_key">tv_days_days_key</string>
     <string name="check">check</string>
     <string name="set_time">Set Time</string>
+    <string name="array_checkDays_size">checkDays_size</string>
+    <string name="array_checkDays_value">checkDays_%d</string>
+    <string name="array_selected_day_size">selected_day_size</string>
+    <string name="array_selected_day_value">selected_day_value_%d</string>
 </resources>

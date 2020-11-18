@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +20,8 @@ import com.kagan.control_your_home.others.FunctionConstant
 import com.kagan.control_your_home.others.ScheduleTaskHelper
 import com.kagan.control_your_home.viewmodel.DBViewModel
 import com.kagan.control_your_home.viewmodel.TimeViewModel
+import java.util.*
+import kotlin.collections.ArrayList
 
 class DeviceFragment : Fragment(R.layout.fragment_device) {
 
@@ -164,14 +167,26 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
         binding.flRepeat.alpha = 1F
     }
 
+    private fun setTimeInMillis(hoursOfDay: Int, minute: Int): Long {
+        val c = Calendar.getInstance()
+        c.set(Calendar.HOUR_OF_DAY, hoursOfDay)
+        c.set(Calendar.MINUTE, minute)
+
+        return c.timeInMillis
+    }
+
     private fun setTime() {
         Log.d(TAG, "setTime: ")
         timeViewModel.startTime.observe(viewLifecycleOwner, {
             if (it == null) {
                 binding.tvFrom.text = getString(R.string.set_time)
             } else {
-                binding.tvFrom.text = FunctionConstant.simpleDateFormat(it)
-                Log.d(TAG, "open: ${FunctionConstant.simpleDateFormat(it)}")
+                binding.tvFrom.text =
+                    FunctionConstant.simpleDateFormat(setTimeInMillis(it[0], it[1]))
+                Log.d(
+                    TAG,
+                    "open: ${FunctionConstant.simpleDateFormat(setTimeInMillis(it[0], it[1]))}"
+                )
             }
         })
 
@@ -179,23 +194,48 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             if (it == null) {
                 binding.tvTo.text = getString(R.string.set_time)
             } else {
-                binding.tvTo.text = FunctionConstant.simpleDateFormat(it)
-                Log.d(TAG, "close: ${FunctionConstant.simpleDateFormat(it)}")
+                binding.tvTo.text = FunctionConstant.simpleDateFormat(setTimeInMillis(it[0], it[1]))
+                Log.d(
+                    TAG,
+                    "close: ${FunctionConstant.simpleDateFormat(setTimeInMillis(it[0], it[1]))}"
+                )
             }
         })
     }
 
     private fun setAlarm() {
+        val days = timeViewModel.selectedDays.value?.map {
+            when (it) {
+                "Mon" -> Calendar.MONDAY
+                "Tue" -> Calendar.TUESDAY
+                "Wed" -> Calendar.WEDNESDAY
+                "Thu" -> Calendar.THURSDAY
+                "Fri" -> Calendar.FRIDAY
+                "Sat" -> Calendar.SATURDAY
+                "Sun" -> Calendar.SUNDAY
+                else -> Calendar.DAY_OF_WEEK
+            }
+        }
+
         timeViewModel.startTime.value?.let {
-            schedule.setAlarm(it, true)
+            for (i in days?.indices!!) {
+                schedule.setAlarm(it[0], it[1], days[i], true)
+            }
             Log.d(TAG, "setAlarm: inside Start time")
         }
 
         timeViewModel.endTime.value?.let {
-            schedule.setAlarm(it, false)
+            for (i in days?.indices!!) {
+                schedule.setAlarm(it[0], it[1], days[i], false)
+            }
             Log.d(TAG, "setAlarm: inside end time")
         }
-        Log.d(TAG, "setAlarm: ")
+
+        Toast.makeText(
+            context,
+            "Alarm Set.",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun setInfo() {
@@ -218,16 +258,25 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             putBoolean(getString(R.string.btn_on_off_status_key), binding.sOnOff.isChecked)
 
             timeViewModel.startTime.value?.let {
-                putLong(
-                    getString(R.string.tv_start_time_key),
-                    it
+                putInt(
+                    getString(R.string.tv_start_time_hours_key),
+                    it[0]
+                )
+                putInt(
+                    getString(R.string.tv_start_time_minutes_key),
+                    it[1]
                 )
             }
 
             timeViewModel.endTime.value?.let {
-                putLong(
-                    getString(R.string.tv_end_time_key),
-                    it
+                putInt(
+                    getString(R.string.tv_end_time_hours_key),
+                    it[0]
+                )
+
+                putInt(
+                    getString(R.string.tv_end_time_minutes_key),
+                    it[1]
                 )
             }
 
@@ -264,16 +313,28 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
 
         binding.tvFrom.text =
             FunctionConstant.simpleDateFormat(
-                sharedPref.getLong(
-                    getString(R.string.tv_start_time_key),
-                    0
+                setTimeInMillis(
+                    sharedPref.getInt(
+                        getString(R.string.tv_start_time_hours_key),
+                        0
+                    ),
+                    sharedPref.getInt(
+                        getString(R.string.tv_start_time_minutes_key),
+                        0
+                    )
                 )
             )
         binding.tvTo.text =
             FunctionConstant.simpleDateFormat(
-                sharedPref.getLong(
-                    getString(R.string.tv_end_time_key),
-                    0
+                setTimeInMillis(
+                    sharedPref.getInt(
+                        getString(R.string.tv_end_time_hours_key),
+                        0
+                    ),
+                    sharedPref.getInt(
+                        getString(R.string.tv_end_time_minutes_key),
+                        0
+                    )
                 )
             )
 
@@ -292,6 +353,7 @@ class DeviceFragment : Fragment(R.layout.fragment_device) {
             selectedDays.add(
                 sharedPref.getString(getString(R.string.array_selected_day_value, i), "").toString()
             )
+            timeViewModel.selectedDays.value = selectedDays
         }
     }
 

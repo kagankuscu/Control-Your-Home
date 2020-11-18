@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel
 
 class TimeViewModel : ViewModel() {
 
-    val startTime = MutableLiveData<Long>()
+    val startTime = MutableLiveData<ArrayList<Int>>()
 
-    val endTime = MutableLiveData<Long>()
+    val endTime = MutableLiveData<ArrayList<Int>>()
 
     val selectedDays = MutableLiveData<ArrayList<String>>()
 

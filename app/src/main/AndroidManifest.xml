@@ -16,8 +16,12 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".broadcasts.OpenDeviceBroadcast" />
-        <receiver android:name=".broadcasts.CloseDeviceBroadcast" />
+        <receiver
+            android:name=".broadcasts.OpenDeviceBroadcast"
+            android:enabled="true" />
+        <receiver
+            android:name=".broadcasts.CloseDeviceBroadcast"
+            android:enabled="true" />
     </application>
 
 </manifest>

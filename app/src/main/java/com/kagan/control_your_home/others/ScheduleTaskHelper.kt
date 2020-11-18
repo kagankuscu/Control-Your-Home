@@ -6,9 +6,11 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import com.kagan.control_your_home.broadcasts.CloseDeviceBroadcast
 import com.kagan.control_your_home.broadcasts.OpenDeviceBroadcast
 import com.kagan.control_your_home.others.Constant.LIVING_ROOM
+import java.util.*
 
 class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
 
@@ -26,27 +28,39 @@ class ScheduleTaskHelper(base: Context?) : ContextWrapper(base) {
 
         val i = Intent(baseContext, broadcast)
         i.putExtra(LIVING_ROOM, LIVING_ROOM)
-        val pendingIntent = PendingIntent.getBroadcast(baseContext, 0, i, 0)
 
-        return pendingIntent
+        return PendingIntent.getBroadcast(baseContext, 0, i, 0)
     }
 
-    fun setAlarm(inTimeMillis: Long, broadcast: Boolean) {
+    private fun setCalendar(hourOfDay: Int, minute: Int, dayOfWeek: Int): Long {
+        val c = Calendar.getInstance()
+
+        c.set(Calendar.DAY_OF_WEEK, dayOfWeek)
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        c.set(Calendar.MINUTE, minute)
+
+        return c.timeInMillis
+    }
+
+    fun setAlarm(hourOfDay: Int, minute: Int, dayOfWeek: Int, broadcast: Boolean) {
+
+        val time = setCalendar(hourOfDay, minute, dayOfWeek)
 
         val pendingIntent = getPendingIntent(broadcast)
 
         Log.d(
             TAG,
             "setAlarm: waiting ${
-                FunctionConstant.simpleDateFormat(inTimeMillis)
+                FunctionConstant.simpleDateFormatDetails(time)
             }"
         )
 
         try {
             getAlarmManager()
-                .setExact(
+                .setRepeating(
                     AlarmManager.RTC_WAKEUP,
-                    inTimeMillis,
+                    time,
+                    AlarmManager.INTERVAL_DAY * 7,
                     pendingIntent
                 )
         } catch (e: Exception) {

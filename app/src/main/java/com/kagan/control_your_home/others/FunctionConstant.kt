@@ -9,6 +9,10 @@ object FunctionConstant {
         return SimpleDateFormat("hh:mm a", Locale.UK).format(time)
     }
 
+    fun simpleDateFormatDetails(time: Long): String {
+        return SimpleDateFormat("d/MM/y E hh:mm a", Locale.UK).format(time)
+    }
+
     fun formatList(selectedItems: ArrayList<String>): String {
         return Arrays.toString(selectedItems.toArray()).replace("[", "")
             .replace("]", "")
